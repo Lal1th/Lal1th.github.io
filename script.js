@@ -2,50 +2,61 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // --- 1. Scroll-Based Section Animation (The Wix Effect) ---
     
-    // Select all sections to be observed
     const sections = document.querySelectorAll('.data-section');
-
-    // Options for the Intersection Observer
     const observerOptions = {
-        root: null, // relative to the viewport
+        root: null,
         rootMargin: '0px',
-        threshold: 0.3 // Trigger when 30% of the section is visible
+        threshold: 0.3 
     };
 
-    // The callback function executed when intersection occurs
     const observerCallback = (entries, observer) => {
         entries.forEach(entry => {
             const navLink = document.querySelector(`#navbar a[href="#${entry.target.id}"]`);
             
             if (entry.isIntersecting) {
-                // Section is now visible, apply active class for animation
                 entry.target.classList.add('active');
-
-                // Highlight the active link in the navbar
                 document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active-link'));
                 if (navLink) {
                     navLink.classList.add('active-link');
                 }
-            } else {
-                // Section has scrolled out of view (optional: remove active class)
-                // entry.target.classList.remove('active'); 
             }
         });
     };
 
-    // Create the observer and start observing each section
     const sectionObserver = new IntersectionObserver(observerCallback, observerOptions);
     sections.forEach(section => {
         sectionObserver.observe(section);
     });
 
+    // --- 2. Headshot Fade Effect on Scroll ---
+    const headshot = document.getElementById('headshot-fade');
+    const heroSection = document.getElementById('hero');
 
-    // --- 2. Confetti Effect for Hackathon Win ---
-    const confettiTrigger = document.getElementById('confetti-trigger-hackathon');
+    if (headshot && heroSection) {
+        window.addEventListener('scroll', () => {
+            // Get the scroll position relative to the hero section top
+            const scrollPos = window.scrollY;
+            
+            // Define the fade distance (e.g., fade over the first 300px of scrolling)
+            const fadeDistance = 400; 
+
+            // Calculate opacity: 1 - (scroll position / fade distance)
+            let opacity = 1 - (scrollPos / fadeDistance);
+
+            // Clamp opacity between 0 and 1
+            opacity = Math.max(0, Math.min(1, opacity));
+            
+            headshot.style.opacity = opacity;
+        });
+    }
+
+    // --- 3. Confetti Effect (Now targeting Keyera Hackathon) ---
+    // The ID is now simply 'confetti-trigger' from the new HTML
+    const confettiTrigger = document.getElementById('confetti-trigger');
 
     if (confettiTrigger) {
         confettiTrigger.addEventListener('mouseover', function() {
-            // Trigger confetti with a spread from the top of the element
+            // Trigger confetti 
             confetti({
                 particleCount: 100,
                 spread: 90,
