@@ -1,52 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lalith Nandakumar | Data Science Portfolio</title>
-  <style>
-    body {
-      font-family: "Segoe UI", sans-serif;
-      background-color: #0d1117;
-      color: #f0f6fc;
-      text-align: center;
-      padding: 50px;
-    }
-    h1 {
-      color: #58a6ff;
-    }
-    a {
-      color: #79c0ff;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .button {
-      display: inline-block;
-      margin: 10px;
-      padding: 12px 20px;
-      background-color: #238636;
-      border-radius: 6px;
-      color: white;
-    }
-    .button:hover {
-      background-color: #2ea043;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lalith Nandakumar | Data Portfolio</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>" rel="icon">
 </head>
 <body>
-  <h1>👋 Hi, I'm Lalith Nandakumar</h1>
-  <p>Data Scientist | Cloud | ML | AI Agents | Analytics</p>
 
-  <p>
-    <a class="button" href="https://lalithn.streamlit.app/" target="_blank">🌐 Live Streamlit App</a>
-    <a class="button" href="https://github.com/Lal1th" target="_blank">📊 GitHub</a>
-    <a class="button" href="https://www.linkedin.com/in/lalith-n/" target="_blank">💼 LinkedIn</a>
-    <a class="button" href="mailto:lalithpathapati@gmail.com">📩 Email Me</a>
-  </p>
+    <aside class="sidebar">
+        <div class="sidebar-content">
+            <img src="https://avatars.githubusercontent.com/u/55122153?v=4" alt="Lalith Nandakumar Profile Picture" class="profile-pic" />
+            <h1>Lalith Nandakumar</h1>
+            
+            <hr>
 
-  <h3>About Me</h3>
-  <p>
-    I’m a Data Science graduate at the University of Calgary with experience in predictive analytics, cloud-native data pipelines, and AI automation.
-  </p>
+            <h2>About Me</h2>
+            <p>
+                Data Science graduate (University of Calgary) with experience in
+                predictive analytics, cloud-native data pipelines, and AI automation.
+            </p>
+
+            <hr>
+
+            <h2>Contact & Links</h2>
+            <ul>
+                <li><strong>💼 <a href="https://www.linkedin.com/in/lalith-n/" target="_blank">LinkedIn</a></strong></li>
+                <li><strong>📊 <a href="https://github.com/Lal1th" target="_blank">GitHub</a></strong></li>
+                <li><strong>📩 <a href="mailto:lalithpathapati@gmail.com">Email Me</a></strong></li>
+            </ul>
+            
+            <a href="https://lalithn.streamlit.app/" class="button-link" target="_blank">
+                🌐 View My Gaming Dashboard
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        
+        <header>
+            <h1>👋 Hi, I'm Lalith Nandakumar</h1>
+            <p class="subtitle">Data Scientist | Cloud | ML | AI Agents | Analytics</p>
+        </header>
+
+        <hr class="divider">
+
+        <section class="chart-section">
+            <h2>🚀 My 'Skill Growth' (A Dynamic Chart)</h2>
+            <p>Just a fun, dynamic chart to show this is a static site! (Data is simulated)</p>
+            <canvas id="skillChart"></canvas> 
+            <p class="caption">Simulated skill progression over time.</p>
+        </section>
+
+        <hr class="divider">
+
+        <section class="projects-section">
+            <h2>Featured Projects</h2>
+            
+            <div class="project-grid">
+
+                <div class="project-card">
+                    <h3><a href="https://www.linkedin.com/posts/activity-7303496301101359106-1QHU?utm_source=share&utm_medium=member_desktop&rcm=ACoAADchgAsB7gIKE5BVo0M96yjGcSnJJ6dmGjM" target="_blank">🏆 AWSxKeyera Data Analytics Hackathon (3rd Place)</a></h3>
+                    <img src="https://github.com/Lal1th/Portfolio/blob/main/Hac_img.jpg?raw=true" alt="AWS Hackathon Image" class="project-image">
+                    
+                    <p id="confetti-trigger" class="confetti-description">
+                        Achieved 3rd place in a competitive hackathon. Developed an end-to-end BI dashboard using AWS QuickSight... (Hover for a surprise!)
+                    </p>
+                </div>
+
+                <div class="project-card">
+                    <h3><a href="https://lalithn.streamlit.app/" target="_blank">🎮 Interactive Gaming Analysis Dashboard</a></h3>
+                    <img src="https://user-images.githubusercontent.com/55122153/193988640-7e617d59-3d1f-4bb3-9366-074f74d0e8bd.png" alt="Gaming Dashboard Image" class="project-image">
+                    <p>A dynamic Streamlit app for analyzing trends in the video game industry. (Note: May take a moment to load!)</p>
+                </div>
+
+                <div class="project-card">
+                    <h3><a href="https://github.com/Lal1th" target="_blank">🤖 AI Customer Support Agent (In Progress)</a></h3>
+                    <img src="https://images.unsplash.com/photo-1516110833967-0b5716ca1365?auto=format&fit=crop&w=1740" alt="AI Bot Image" class="project-image">
+                    <p>Developing an AI agent using modern LLM frameworks to handle customer inquiries, demonstrating skills in AI and automation.</p>
+                </div>
+
+                <div class="project-card">
+                    <h3><a href="https://github.com/Lal1th" target="_blank">☁️ Cloud-Native ETL Pipeline (In Progress)</a></h3>
+                    <img src="https://images.unsplash.com/photo-1542626991-a22a7ae034d3?auto=format&fit=crop&w=1740" alt="Cloud Pipeline Image" class="project-image">
+                    <p>Designing and implementing a scalable, event-driven ETL pipeline on AWS (Lambda, S3, Glue) for processing real-time sales data.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <footer>
+            <hr class="divider">
+            <p class="caption">Built with ❤️ using HTML, CSS, and JavaScript.</p>
+        </footer>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    
+    <script src="script.js"></script>
 </body>
 </html>
