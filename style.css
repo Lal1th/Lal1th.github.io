@@ -1,197 +1,256 @@
-/* --- Global Styles --- */
+/* --- Global Reset & Typography --- */
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background-color: #0d1117; /* Dark background */
-    color: #f0f6fc; /* Light text */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #0d1117; /* GitHub Dark Mode Background */
+    color: #f0f6fc;
     margin: 0;
     padding: 0;
-    display: flex;
+    line-height: 1.6;
+    scroll-behavior: smooth; /* Smooth scrolling for anchor links */
 }
 
 a {
-    color: #58a6ff; /* Link color */
+    color: #58a6ff;
     text-decoration: none;
+    transition: color 0.3s ease;
 }
+
 a:hover {
+    color: #79c0ff;
     text-decoration: underline;
 }
 
 h1, h2, h3 {
     color: #c9d1d9;
-    margin-top: 0;
+    font-weight: 600;
 }
 
-hr {
-    border: none;
-    height: 1px;
-    background-color: #30363d; /* Divider color */
-}
-hr.divider {
-    margin: 2rem 0;
-}
+h1 { font-size: 3.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; }
 
-/* --- 1. Sidebar --- */
-.sidebar {
-    width: 320px; /* Fixed width */
-    height: 100vh; /* Full height */
-    position: fixed; /* Sticks to the left */
+/* --- Fixed Navigation Bar --- */
+#navbar {
+    position: fixed;
     top: 0;
-    left: 0;
-    background-color: #161b22; /* Slightly lighter dark */
-    border-right: 1px solid #30363d;
-    padding: 2rem;
-    box-sizing: border-box; /* Includes padding in the width */
-    overflow-y: auto; /* Adds scroll if content is too long */
-}
-
-.profile-pic {
     width: 100%;
-    border-radius: 50%;
-    border: 2px solid #30363d;
-    margin-bottom: 1rem;
+    background-color: rgba(13, 17, 23, 0.95); /* Semi-transparent dark background */
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 4rem;
+    border-bottom: 1px solid #30363d;
+    transition: background-color 0.3s;
 }
 
-.sidebar-content h1 {
-    font-size: 1.75rem;
-    margin-bottom: 1.5rem;
-    text-align: center;
+#navbar a:first-child {
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: #58a6ff;
 }
 
-.sidebar-content h2 {
-    font-size: 1.2rem;
-    color: #8b949e; /* Muted heading color */
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
-}
-
-.sidebar-content p {
-    font-size: 0.95rem;
-    line-height: 1.6;
+.nav-links a {
+    margin-left: 2rem;
+    font-weight: 500;
     color: #c9d1d9;
 }
 
-.sidebar-content ul {
-    list-style-type: none;
+.nav-links a:hover {
+    color: #58a6ff;
+    text-decoration: none;
+}
+
+/* --- Section Styling (Full-Screen Layout) --- */
+.data-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 4rem;
+    text-align: left;
+    overflow: hidden; /* Important for animations */
+}
+
+.content-wrapper {
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+    background-color: #161b22;
+    padding: 3rem;
+    border-radius: 12px;
+    border: 1px solid #30363d;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.section-icon {
+    font-size: 1.8rem;
+    margin-right: 10px;
+    color: #58a6ff;
+}
+
+/* --- HERO Section Specifics --- */
+.hero-section {
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+    text-align: center;
+}
+.hero-section .content-wrapper {
+    background: transparent;
+    border: none;
+    box-shadow: none;
     padding: 0;
 }
-.sidebar-content li {
-    margin-bottom: 0.75rem;
-    font-size: 1rem;
+.hero-section h1 {
+    font-size: 5rem;
+    color: #58a6ff;
+}
+.hero-section h2 {
+    font-size: 2rem;
+    color: #c9d1d9;
+    margin-bottom: 2rem;
+}
+.tagline {
+    font-size: 1.2rem;
+    color: #8b949e;
+    margin-bottom: 3rem;
+}
+.links-group a {
+    margin: 0 1rem;
 }
 
-/* Button-style link */
-.button-link {
-    display: block;
-    width: 100%;
-    padding: 12px 20px;
-    background-color: #238636; /* Green */
+.cta-button {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #238636;
     color: white;
-    font-weight: bold;
-    text-align: center;
     border-radius: 6px;
-    text-decoration: none;
-    margin-top: 1.5rem;
-    box-sizing: border-box;
-    transition: background-color 0.2s ease;
+    font-weight: bold;
+    transition: background-color 0.3s;
 }
-.button-link:hover {
-    background-color: #2ea043; /* Lighter green on hover */
+.cta-button:hover {
+    background-color: #2ea043;
     text-decoration: none;
 }
-
-/* --- 2. Main Content --- */
-.main-content {
-    margin-left: 320px; /* Offset by the sidebar width */
-    padding: 3rem 4rem;
-    width: calc(100% - 320px); /* Take remaining space */
-    box-sizing: border-box;
+.link-text {
+    font-weight: 500;
 }
 
-header .subtitle {
-    font-size: 1.5rem;
+/* Floating Data Cube (Visual Flair) */
+.floating-cube {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: rgba(88, 166, 255, 0.1);
+    border: 1px solid #58a6ff;
+    border-radius: 10px;
+    animation: float 8s ease-in-out infinite alternate;
+    transform: rotate(45deg);
+    top: 50%;
+    right: 10%;
+    z-index: 0;
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0) rotate(45deg); opacity: 0.5; }
+    100% { transform: translate(-20px, 30px) rotate(48deg); opacity: 0.8; }
+}
+
+
+/* --- Card Layouts (Work/Hackathon/Projects) --- */
+.job-card {
+    border-left: 4px solid #58a6ff;
+    padding-left: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+.job-card h3 {
+    margin-top: 0;
+    margin-bottom: 0.25rem;
+    color: #58a6ff;
+    font-size: 1.4rem;
+}
+.job-company {
+    font-size: 1.1rem;
     color: #8b949e;
-    margin-top: -1rem;
+    font-weight: normal;
 }
-
-.caption {
-    font-size: 0.9rem;
+.job-date {
+    font-style: italic;
     color: #8b949e;
-    text-align: center;
+    margin-bottom: 1rem;
 }
-
-/* --- Project Grid --- */
-.project-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* 2 equal columns */
-    gap: 2rem; /* Space between cards */
+.job-card ul {
+    padding-left: 20px;
 }
 
 .project-card {
-    background-color: #161b22;
-    border: 1px solid #30363d;
-    border-radius: 8px;
+    background-color: #1f242c;
     padding: 1.5rem;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    border: 1px solid #30363d;
+    transition: background-color 0.3s, transform 0.3s;
 }
-
 .project-card:hover {
-    transform: translateY(-5px); /* Lift effect */
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    background-color: #262c35;
+    transform: translateY(-3px);
 }
-
-.project-card h3 {
-    margin-top: 0;
-    font-size: 1.25rem;
-}
-.project-card h3 a {
-    color: #c9d1d9; /* White-ish title */
-}
-
-.project-image {
-    width: 100%;
-    border-radius: 6px;
+.project-details {
+    font-style: italic;
+    color: #8b949e;
+    margin-top: -0.5rem;
     margin-bottom: 1rem;
-    aspect-ratio: 16 / 9; /* Widescreen aspect ratio */
-    object-fit: cover; /* Prevents image stretching */
-}
-
-.project-card p {
     font-size: 0.95rem;
-    color: #c9d1d9;
-    line-height: 1.6;
+}
+.button-small {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #238636;
+    color: white;
+    border-radius: 4px;
+    font-weight: bold;
+    margin-top: 1rem;
 }
 
-/* Confetti hover effect */
-.confetti-description {
+/* Hackathon-specific elements */
+.confetti-trigger-text {
     cursor: pointer;
-    color: #F97316 !important; /* Bright orange */
+    color: #F97316; /* Bright orange */
     font-weight: 500;
+    display: inline-block;
+    margin-top: 1rem;
 }
-.confetti-description:hover {
+.confetti-trigger-text:hover {
     text-decoration: underline;
 }
 
-/* --- Responsive Design (for smaller screens) --- */
-@media (max-width: 900px) {
-    body {
-        flex-direction: column; /* Stack main content below sidebar */
-    }
+/* Footer */
+footer {
+    text-align: center;
+    padding-top: 2rem;
+}
+footer p {
+    font-size: 0.85rem;
+    color: #8b949e;
+}
+hr {
+    border: none;
+    height: 1px;
+    background-color: #30363d;
+    margin: 2rem 0;
+}
 
-    .sidebar {
-        width: 100%;
-        height: auto; /* Auto height */
-        position: relative; /* No longer fixed */
-        border-right: none;
-        border-bottom: 1px solid #30363d;
-    }
 
-    .main-content {
-        margin-left: 0; /* No more offset */
-        width: 100%;
-        padding: 2rem;
-    }
+/* ---------------------------------
+   SCROLL ANIMATION STYLES (WIX EFFECT)
+   --------------------------------- */
+.data-section:not(.active) {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
 
-    .project-grid {
-        grid-template-columns: 1fr; /* Single column on mobile */
-    }
+.data-section.active {
+    opacity: 1;
+    transform: translateY(0);
 }
