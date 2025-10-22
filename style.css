@@ -1,0 +1,205 @@
+/* --- Global Styles --- */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #0d1117; /* Dark background */
+    color: #f0f6fc; /* Light text */
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+a {
+    color: #58a6ff; /* Link color */
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+h1, h2, h3 {
+    color: #c9d1d9;
+    margin-top: 0;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background-color: #30363d; /* Divider color */
+}
+hr.divider {
+    margin: 2rem 0;
+}
+
+/* --- 1. Sidebar --- */
+.sidebar {
+    width: 320px; /* Fixed width */
+    height: 100vh; /* Full height */
+    position: fixed; /* Sticks to the left */
+    top: 0;
+    left: 0;
+    background-color: #161b22; /* Slightly lighter dark */
+    border-right: 1px solid #30363d;
+    padding: 2rem;
+    box-sizing: border-box; /* Includes padding in the width */
+    overflow-y: auto; /* Adds scroll if content is too long */
+}
+
+.profile-pic {
+    width: 100%;
+    border-radius: 50%;
+    border: 2px solid #30363d;
+    margin-bottom: 1rem;
+}
+
+.sidebar-content h1 {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.sidebar-content h2 {
+    font-size: 1.2rem;
+    color: #8b949e; /* Muted heading color */
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.sidebar-content p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #c9d1d9;
+}
+
+.sidebar-content ul {
+    list-style-type: none;
+    padding: 0;
+}
+.sidebar-content li {
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+}
+
+/* Button-style link */
+.button-link {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    background-color: #238636; /* Green */
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 6px;
+    text-decoration: none;
+    margin-top: 1.5rem;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease;
+}
+.button-link:hover {
+    background-color: #2ea043; /* Lighter green on hover */
+    text-decoration: none;
+}
+
+/* --- 2. Main Content --- */
+.main-content {
+    margin-left: 320px; /* Offset by the sidebar width */
+    padding: 3rem 4rem;
+    width: calc(100% - 320px); /* Take remaining space */
+    box-sizing: border-box;
+}
+
+header .subtitle {
+    font-size: 1.5rem;
+    color: #8b949e;
+    margin-top: -1rem;
+}
+
+.caption {
+    font-size: 0.9rem;
+    color: #8b949e;
+    text-align: center;
+}
+
+/* --- Chart Section --- */
+.chart-section {
+    background-color: #161b22;
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid #30363d;
+}
+
+/* --- Project Grid --- */
+.project-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 equal columns */
+    gap: 2rem; /* Space between cards */
+}
+
+.project-card {
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px); /* Lift effect */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.project-card h3 {
+    margin-top: 0;
+    font-size: 1.25rem;
+}
+.project-card h3 a {
+    color: #c9d1d9; /* White-ish title */
+}
+
+.project-image {
+    width: 100%;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    aspect-ratio: 16 / 9; /* Widescreen aspect ratio */
+    object-fit: cover; /* Prevents image stretching */
+}
+
+.project-card p {
+    font-size: 0.95rem;
+    color: #c9d1d9;
+    line-height: 1.6;
+}
+
+/* Confetti hover effect */
+.confetti-description {
+    cursor: pointer;
+    color: #F97316 !important; /* Bright orange */
+    font-weight: 500;
+}
+.confetti-description:hover {
+    text-decoration: underline;
+}
+
+/* --- Responsive Design (for smaller screens) --- */
+@media (max-width: 900px) {
+    body {
+        flex-direction: column; /* Stack main content below sidebar */
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto; /* Auto height */
+        position: relative; /* No longer fixed */
+        border-right: none;
+        border-bottom: 1px solid #30363d;
+    }
+
+    .main-content {
+        margin-left: 0; /* No more offset */
+        width: 100%;
+        padding: 2rem;
+    }
+
+    .project-grid {
+        grid-template-columns: 1fr; /* Single column on mobile */
+    }
+}
