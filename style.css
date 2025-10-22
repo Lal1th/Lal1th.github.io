@@ -119,14 +119,6 @@ header .subtitle {
     text-align: center;
 }
 
-/* --- Chart Section --- */
-.chart-section {
-    background-color: #161b22;
-    padding: 2rem;
-    border-radius: 8px;
-    border: 1px solid #30363d;
-}
-
 /* --- Project Grid --- */
 .project-grid {
     display: grid;
