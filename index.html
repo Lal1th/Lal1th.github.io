@@ -1,0 +1,2184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lalith Nandakumar – Data Science Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* --- Hero Flex Layout --- */
+      .hero-flex {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 32px;
+      }
+      .hero-main {
+        flex: 0 1 70%;
+        min-width: 0;
+      }
+      .hero-img {
+        flex: 0 1 30%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .hero-img img {
+        width: 380px;
+        height: 380px;
+        object-fit: cover;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        background: var(--card);
+        display: block;
+        border-radius: 50%;
+        border: 4px solid var(--ring);
+        animation: float 6s ease-in-out infinite;
+        transition: transform 0.3s ease;
+      }
+
+      .hero-img img:hover {
+        transform: scale(1.05) rotate(5deg);
+      }
+
+      @keyframes float {
+        0%, 100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      @media (max-width: 900px) {
+        .hero-flex {
+          flex-direction: column-reverse;
+          gap: 18px;
+        }
+        .hero-img img {
+          width: 200px;
+          height: 200px;
+          border-radius: 50%;
+        }
+      }
+
+      /* --- Root Variables --- */
+      :root {
+        --bg: #0d1117;
+        --bg-2: #121216;
+        --text: #f3f4f6;
+        --muted: #a3a3a3;
+        --accent: #58a6ff;
+        --ai: #58a6ff;
+        --card: #161b22;
+        --chip: #1f2430;
+        --ring: #30363d;
+      }
+      * {
+        box-sizing: border-box;
+      }
+        
+      html {
+        scroll-behavior: smooth;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+        body {
+        margin: 0;
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto,
+          Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        color: var(--text);
+        background: radial-gradient(
+            1200px 800px at 20% -10%,
+            #182141 0%,
+            rgba(24, 33, 65, 0) 60%
+          ),
+          radial-gradient(
+            900px 600px at 90% 10%,
+            #191f2e 0%,
+            rgba(25, 31, 46, 0) 50%
+          ),
+          var(--bg);
+        line-height: 1.4;
+        overflow-x: hidden;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .container {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      /* Animated Background Particles */
+      .particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .particle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: var(--accent);
+        border-radius: 50%;
+        opacity: 0.3;
+        animation: particleFloat 20s infinite ease-in-out;
+      }
+
+      @keyframes particleFloat {
+        0%, 100% {
+          transform: translate(0, 0);
+          opacity: 0.3;
+        }
+        25% {
+          transform: translate(100px, -100px);
+          opacity: 0.6;
+        }
+        50% {
+          transform: translate(-50px, -200px);
+          opacity: 0.3;
+        }
+        75% {
+          transform: translate(-150px, -100px);
+          opacity: 0.6;
+        }
+      }
+
+      /* --- Header --- */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(10px);
+        background: linear-gradient(
+          180deg,
+          rgba(13, 17, 23, 0.95),
+          rgba(13, 17, 23, 0.4)
+        );
+        border-bottom: 1px solid var(--ring);
+        animation: slideDown 0.5s ease-out;
+      }
+
+      @keyframes slideDown {
+        from {
+          transform: translateY(-100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+     .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 64px;
+        position: relative;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+      }
+      .brand .logo {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, var(--accent), #1f5a9e);
+        box-shadow: 0 6px 20px rgba(88, 166, 255, 0.35);
+        font-family: Poppins, Inter, sans-serif;
+        font-weight: 800;
+        transition: all 0.3s ease;
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      .brand .logo:hover {
+        transform: rotate(360deg) scale(1.1);
+        box-shadow: 0 10px 30px rgba(88, 166, 255, 0.6);
+      }
+
+      @keyframes pulse {
+        0%, 100% {
+          box-shadow: 0 6px 20px rgba(88, 166, 255, 0.35);
+        }
+        50% {
+          box-shadow: 0 6px 30px rgba(88, 166, 255, 0.6);
+        }
+      }
+
+      nav ul {
+        display: flex;
+        gap: 18px;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      nav a {
+        color: #e5e7eb;
+        opacity: 0.9;
+        font-size: 0.95rem;
+        position: relative;
+        transition: all 0.3s ease;
+      }
+
+      nav a::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--accent);
+        transition: width 0.3s ease;
+      }
+
+      nav a:hover::after {
+        width: 100%;
+      }
+
+      nav a:hover {
+        opacity: 1;
+        color: var(--accent);
+      }
+      .cta {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+        .btn {
+        padding: 10px 14px;
+        border-radius: 999px;
+        border: 1px solid var(--ring);
+        background: #21262d;
+        color: #e5e7eb;
+        font-weight: 600;
+        font-size: 0.9rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+      }
+
+      .btn:hover::before {
+        width: 300px;
+        height: 300px;
+      }
+
+      .btn:hover {
+        background: #30363d;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .btn.primary {
+        background: var(--accent);
+        border-color: #1f5a9e;
+        color: #ffffff;
+      }
+       .btn.primary:hover {
+        background: #79c0ff;
+        box-shadow: 0 5px 20px rgba(88, 166, 255, 0.4);
+      }
+      .btn.ghost {
+        background: transparent;
+      }
+
+       /* Hamburger Menu */
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        gap: 4px;
+        width: 32px;
+        height: 32px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        z-index: 100;
+      }
+      .hamburger span {
+        display: block;
+        height: 3px;
+        width: 100%;
+        background: #e5e7eb;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+      }
+      .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 6px);
+      }
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+      .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px);
+      }
+
+      nav#main-nav .cta {
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      margin-top: 16px;
+    }
+
+    nav#main-nav .btn {
+      width: 100%;
+      justify-content: center;
+      padding: 12px 16px;
+      font-size: 0.95rem;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }   
+    
+      .social-links {
+        display: flex;
+        gap: 16px;
+        margin-top: 20px;
+        justify-content: flex-start;
+      }
+
+      .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--ring);
+        border-radius: 12px;
+        color: #e5e7eb;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        position: relative;
+      }
+
+      .social-links a::before {
+        content: '';
+        position: absolute;
+        inset: -2px;
+        border-radius: 12px;
+        padding: 2px;
+        background: linear-gradient(45deg, var(--accent), #79c0ff);
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .social-links a:hover::before {
+        opacity: 1;
+      }
+
+      .social-links a:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-5px) rotate(5deg);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      .social-links a[aria-label="GitHub"]:hover {
+        background: #333;
+        border-color: #333;
+      }
+
+      .social-links a[aria-label="LinkedIn"]:hover {
+        background: #0077b5;
+        border-color: #0077b5;
+      }
+
+      @media (max-width: 768px) {
+        .social-links {
+          justify-content: center;
+          margin-top: 16px;
+        }
+        
+        .social-links a {
+          width: 40px;
+          height: 40px;
+          font-size: 1.1rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .social-links {
+          gap: 12px;
+        }
+        
+        .social-links a {
+          width: 36px;
+          height: 36px;
+          font-size: 1rem;
+        }
+      }
+
+      nav#main-nav {
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: rgba(21, 22, 27, 0.98);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--ring);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+        display: none;
+        flex-direction: column;
+        padding: 16px 24px 20px;
+        z-index: 99;
+      }
+      nav#main-nav.open {
+        display: flex;
+        animation: slideDown 0.3s ease-out;
+      }
+      nav#main-nav ul {
+        flex-direction: column;
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+      nav#main-nav a {
+        font-size: 1rem;
+        padding: 8px 0;
+      }
+
+      /* --- Hero --- */
+      .hero {
+        position: relative;
+        padding: 48px 0 16px;
+        overflow: hidden;
+      }
+      .hero .bg-layer {
+        position: absolute;
+        inset: -2px;
+        background: url("https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop")
+          center/cover no-repeat;
+        opacity: 0.10;
+        filter: grayscale(40%) contrast(110%);
+        animation: parallaxSlow 30s ease-in-out infinite;
+      }
+
+      @keyframes parallaxSlow {
+        0%, 100% {
+          transform: scale(1) translateY(0);
+        }
+        50% {
+          transform: scale(1.05) translateY(-20px);
+        }
+      }
+
+      .hero .overlay {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          60% 60% at 20% 20%,
+          rgba(62, 166, 255, 0.28),
+          rgba(0, 0, 0, 0) 60%
+        );
+      }
+      .hero-content {
+        position: relative;
+      }
+      .overline {
+        color: var(--ai);
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        animation: fadeInUp 0.8s ease-out;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .title {
+        font-family: Poppins, Inter, sans-serif;
+        font-size: 56px;
+        line-height: 1.05;
+        margin: 12px 0;
+        animation: fadeInUp 0.8s ease-out 0.2s backwards;
+      }
+
+      .title span {
+        display: inline-block;
+        background: linear-gradient(120deg, var(--accent), #79c0ff, var(--accent));
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: shimmer 3s linear infinite;
+      }
+
+      @keyframes shimmer {
+        0% {
+          background-position: 0% center;
+        }
+        100% {
+          background-position: 200% center;
+        }
+      }
+
+      .subtitle {
+        color: #d1d5db;
+        font-size: 1.125rem;
+        max-width: 920px;
+        animation: fadeInUp 0.8s ease-out 0.4s backwards;
+      }
+      .hero-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 18px;
+        animation: fadeInUp 0.8s ease-out 0.6s backwards;
+      }
+      .badges {
+        display: flex;
+        gap: 10px;
+        margin-top: 14px;
+        flex-wrap: wrap;
+        animation: fadeInUp 0.8s ease-out 0.8s backwards;
+      }
+      .badge {
+        background: linear-gradient(180deg, #1a1f2a, #12141a);
+        border: 1px solid var(--ring);
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-size: 0.9rem;
+        color: #cbd5e1;
+        transition: all 0.3s ease;
+      }
+
+      .badge:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(88, 166, 255, 0.3);
+        border-color: var(--accent);
+      }
+
+      .modal {
+        position: fixed;
+        inset: 0;
+        display: none;
+        place-items: center;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(4px);
+        z-index: 60;
+      }
+      .modal.open {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+      }
+      .modal .sheet {
+        width: min(920px, 92vw);
+        background: linear-gradient(180deg, #14151b, #0f1117);
+        border: 1px solid #2a2f3b;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+      }
+
+      @media (max-width: 1024px) {
+        .hero-flex {
+          gap: 24px;
+        }
+        .hero-img img {
+          width: 320px;
+          height: 320px;
+        }
+        .title {
+          font-size: 48px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .hamburger {
+          display: flex;
+        }
+        
+        .nav > nav {
+          display: none;
+        }
+        .nav > .cta {
+          display: none;
+        }
+        
+        .hero-flex {
+          flex-direction: column-reverse;
+          gap: 20px;
+          text-align: center;
+        }
+        .hero-main {
+          flex: none;
+          width: 100%;
+        }
+        .hero-img {
+          flex: none;
+          width: 100%;
+        }
+        .hero-img img {
+          width: 250px;
+          height: 250px;
+        }
+        .title {
+          font-size: 36px;
+        }
+        .subtitle {
+          font-size: 1rem;
+        }
+        .hero-actions {
+          justify-content: center;
+          flex-direction: column;
+          gap: 10px;
+        }
+        .btn {
+          padding: 12px 20px;
+          font-size: 0.95rem;
+          justify-content: center;
+        }
+        .badges {
+          justify-content: center;
+          flex-direction: column;
+          gap: 8px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          padding: 0 16px;
+        }
+        .nav {
+          height: 56px;
+          padding: 0 16px;
+        }
+        .brand .logo {
+          width: 32px;
+          height: 32px;
+          font-size: 0.85rem;
+        }
+        .hamburger {
+          width: 28px;
+          height: 28px;
+        }
+        nav#main-nav {
+          padding: 12px 16px;
+          top: 56px;
+        }
+        .hero {
+          padding: 32px 0 16px;
+        }
+        .hero-img img {
+          width: 180px;
+          height: 180px;
+        }
+        .overline {
+          font-size: 0.75rem;
+        }
+        .title {
+          font-size: 28px;
+          margin: 8px 0;
+        }
+        .subtitle {
+          font-size: 0.95rem;
+          line-height: 1.5;
+        }
+        .btn {
+          padding: 10px 16px;
+          font-size: 0.9rem;
+        }
+        .badge {
+          font-size: 0.8rem;
+          padding: 6px 10px;
+          text-align: center;
+        }
+        .hero-actions {
+          margin-top: 16px;
+        }
+        .badges {
+          margin-top: 12px;
+        }
+      }
+
+      /* --- Content Rows --- */
+      section {
+        margin: 42px 0;
+        opacity: 0;
+        transform: translateY(50px);
+        animation: fadeInUp 0.8s ease-out forwards;
+      }
+
+      section:nth-child(1) { animation-delay: 0.1s; }
+      section:nth-child(2) { animation-delay: 0.2s; }
+      section:nth-child(3) { animation-delay: 0.3s; }
+      section:nth-child(4) { animation-delay: 0.4s; }
+
+      .row-header {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+      .row-title {
+        font-family: Poppins, Inter, sans-serif;
+        font-size: 1.35rem;
+        position: relative;
+        display: inline-block;
+      }
+
+      .row-title::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background: linear-gradient(90deg, var(--accent), transparent);
+        animation: expandLine 1s ease-out forwards;
+      }
+
+      @keyframes expandLine {
+        from {
+          width: 0;
+        }
+        to {
+          width: 50px;
+        }
+      }
+
+      .scroller {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .scroll-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 999px;
+        background: var(--card);
+        border: 1px solid var(--ring);
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+        color: var(--text);
+        transition: all 0.3s ease;
+      }
+      .scroll-btn:hover {
+        background: var(--ring);
+        transform: scale(1.1);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .scroll-btn:active {
+        transform: scale(0.95);
+      }
+
+      .carousel {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: clamp(220px, 24vw, 340px);
+        gap: 14px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        padding-bottom: 8px;
+      }
+      .carousel::-webkit-scrollbar {
+        height: 10px;
+      }
+      .carousel::-webkit-scrollbar-thumb {
+        background: #232630;
+        border-radius: 10px;
+      }
+
+      /* --- Cards --- */
+      .card {
+        position: relative;
+        background: var(--card);
+        border: 1px solid var(--ring);
+        border-radius: 16px;
+        overflow: hidden;
+        scroll-snap-align: start;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .card:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 20px 40px rgba(88, 166, 255, 0.2);
+        border-color: var(--accent);
+      }
+
+      .card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(88, 166, 255, 0.1), transparent);
+        transition: left 0.5s ease;
+      }
+
+      .card:hover::before {
+        left: 100%;
+      }
+
+      .poster {
+        aspect-ratio: 16/9;
+        background: #0f1117;
+        position: relative;
+        overflow: hidden;
+      }
+      .poster img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        filter: saturate(1.05);
+        transition: transform 0.6s ease;
+      }
+
+      .card:hover .poster img {
+        transform: scale(1.1);
+      }
+
+      .poster .gradient {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0) 40%,
+          rgba(0, 0, 0, 0.8)
+        );
+      }
+      .meta {
+        position: absolute;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+      }
+      .chips {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .chip {
+        background: var(--chip);
+        color: #cbd5e1;
+        font-size: 0.75rem;
+        border: 1px solid #2b3442;
+        padding: 4px 8px;
+        border-radius: 999px;
+        transition: all 0.3s ease;
+      }
+
+      .chip:hover {
+        background: var(--accent);
+        color: white;
+        transform: scale(1.05);
+      }
+
+      .metric {
+        background: rgba(88, 166, 255, 0.95);
+        color: white;
+        padding: 6px 10px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.8rem;
+        animation: pulse 2s ease-in-out infinite;
+      }
+      .content {
+        padding: 12px;
+      }
+      .content .name {
+        font-weight: 700;
+        transition: color 0.3s ease;
+      }
+
+      .card:hover .content .name {
+        color: var(--accent);
+      }
+
+      .content .desc {
+        color: #c0c6d3;
+        font-size: 0.92rem;
+      }
+      .card .action {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: rgba(0, 0, 0, 0.55);
+        border: 1px solid var(--ring);
+        color: #e5e7eb;
+        padding: 8px 10px;
+        border-radius: 10px;
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        cursor: pointer;
+        font-weight: 600;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+      }
+
+      .card:hover .action {
+        background: var(--accent);
+        transform: scale(1.05);
+      }
+
+      /* --- Skills Grid --- */
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 14px;
+      }
+      .skillcard {
+        background: var(--card);
+        border: 1px solid var(--ring);
+        border-radius: 16px;
+        padding: 14px;
+        min-height: 140px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .skillcard::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(88, 166, 255, 0.1), transparent 70%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .skillcard:hover::before {
+        opacity: 1;
+      }
+
+      .skillcard:hover {
+        transform: translateY(-5px);
+        border-color: var(--accent);
+        box-shadow: 0 10px 30px rgba(88, 166, 255, 0.2);
+      }
+
+      .skillcard h4 {
+        margin: 2px 0 8px 0;
+        font-family: Poppins, Inter, sans-serif;
+        position: relative;
+        z-index: 1;
+      }
+      .skillchips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* --- Footer --- */
+      footer {
+        margin: 64px 0 24px;
+        color: #a9b1c6;
+        text-align: center;
+      }
+      .links {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      /* --- Modal --- */
+      .modal {
+        position: fixed;
+        inset: 0;
+        display: none;
+        place-items: center;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(4px);
+        z-index: 60;
+        animation: fadeIn 0.3s ease-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .modal.open {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+      }
+      .modal .sheet {
+        width: min(920px, 92vw);
+        background: linear-gradient(180deg, #14151b, #0f1117);
+        border: 1px solid #2a2f3b;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+        animation: modalSlideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      @keyframes modalSlideUp {
+        from {
+          transform: translateY(100px) scale(0.9);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0) scale(1);
+          opacity: 1;
+        }
+      }
+
+      .sheet .cover {
+        aspect-ratio: 16/6;
+        background: #0f1117;
+        position: relative;
+        overflow: hidden;
+      }
+      .sheet .cover img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+      }
+
+      .modal.open .sheet .cover img {
+        animation: zoomIn 0.6s ease-out;
+      }
+
+      @keyframes zoomIn {
+        from {
+          transform: scale(1.2);
+        }
+        to {
+          transform: scale(1);
+        }
+      }
+
+      .sheet .cover .fade {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0) 30%,
+          rgba(0, 0, 0, 0.9)
+        );
+      }
+      .sheet .body {
+        padding: 20px;
+      }
+      .sheet .topline {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+      .sheet h3 {
+        margin: 10px 0 8px 0;
+        font-family: Poppins, Inter, sans-serif;
+      }
+      .sheet .two {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 20px;
+      }
+      .sheet .section h5 {
+        margin: 10px 0 8px 0;
+        color: #e5e7eb;
+      }
+      .kbd {
+        background: #1e2633;
+        padding: 2px 8px;
+        border: 1px solid #2f3a4b;
+        border-radius: 6px;
+        font-size: 0.85rem;
+      }
+      .btns {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 1rem;
+      }
+
+      /* Scroll reveal animation */
+      .reveal {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      /* Stagger animation for cards */
+      .carousel .card {
+        animation: cardFadeIn 0.5s ease-out backwards;
+      }
+
+      .carousel .card:nth-child(1) { animation-delay: 0.1s; }
+      .carousel .card:nth-child(2) { animation-delay: 0.2s; }
+      .carousel .card:nth-child(3) { animation-delay: 0.3s; }
+      .carousel .card:nth-child(4) { animation-delay: 0.4s; }
+      .carousel .card:nth-child(5) { animation-delay: 0.5s; }
+
+      @keyframes cardFadeIn {
+        from {
+          opacity: 0;
+          transform: translateX(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @media (max-width: 900px) {
+        .title {
+          font-size: 38px;
+        }
+        .sheet .two {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Animated Background Particles -->
+    <div class="particles" id="particles"></div>
+
+     <header>
+      <div class="container nav">
+        <div class="brand">
+          <a
+            href="#"
+            onclick="window.scrollTo({top:0,behavior:'smooth'});return false;"
+            class="logo"
+            >LN</a>
+        </div>
+        
+        <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        
+        <nav aria-label="Primary">
+          <ul>
+            <li><a href="#education" title="Education">Education & Certs</a></li>
+            <li><a href="#projects" title="Projects">Projects & Hackathons</a></li>
+            <li><a href="#skills" title="Skills">Skills</a></li>
+            <li><a href="#experience" title="Work Experience">Experience</a></li>
+          </ul>
+        </nav>
+        
+        <div class="cta">
+          <a class="btn ghost" href="mailto:lalithpathapati@gmail.com" target="_blank">
+            <i class="ri-send-plane-line"></i> Contact
+          </a>
+          <a class="btn primary" href="mailto:lalithpathapati@gmail.com?subject=Request%20for%20Resume" target="_blank">
+            <i class="ri-download-2-line"></i> Resume
+          </a>
+        </div>
+
+        <nav id="main-nav" aria-label="Mobile menu">
+          <ul>
+            <li><a href="#education">Education & Certs</a></li>
+            <li><a href="#projects">Projects & Hackathons</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#experience">Experience</a></li>
+          </ul>
+          <div class="cta">
+            <a class="btn ghost" href="mailto:lalithpathapati@gmail.com" target="_blank">
+              <i class="ri-send-plane-line"></i> Contact
+            </a>
+            <a class="btn primary" href="mailto:lalithpathapati@gmail.com?subject=Request%20for%20Resume" target="_blank">
+              <i class="ri-download-2-line"></i> Resume
+            </a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="bg-layer" aria-hidden="true"></div>
+      <div class="overlay" aria-hidden="true"></div>
+      <div class="container hero-content hero-flex">
+        <div class="hero-main">
+          <div class="overline">
+            Hello, world! Welcome to my portfolio. 👋
+          </div>
+          <h1 class="title">
+            I'm <span>Lalith Nandakumar</span>
+          </h1>
+          <p class="subtitle">
+            Data Scientist with experience in predictive analytics, cloud-native data pipelines, and AI automation. I build dashboards, pipelines, and models that move metrics.
+          </p>
+          <div class="hero-actions">
+           <a class="btn primary" href="#projects">
+              <i class="ri-lightbulb-flash-line"></i> View Projects
+            </a>
+            <a class="btn" href="#experience">
+              <i class="ri-rocket-2-line"></i> See Experience
+            </a>
+          </div>
+            <div class="social-links">
+            <a href="https://github.com/Lal1th" target="_blank" aria-label="GitHub" title="GitHub">
+              <i class="ri-github-fill"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/Lalith-N" target="_blank" aria-label="LinkedIn" title="LinkedIn">
+              <i class="ri-linkedin-box-fill"></i>
+            </a>
+            <a href="mailto:lalithpathapati@gmail.com" target="_blank" aria-label="Email" title="Email">
+              <i class="ri-mail-line"></i>
+            </a>
+          </div>
+          
+          <div class="badges">
+            <span class="badge">LLMs • RAG • AI Agents • LangChain</span>
+            <span class="badge">AWS • Python • SQL • Docker</span>
+            <span class="badge">Predictive Analysis & Dashboards</span>
+          </div>
+        </div>
+
+        <div class="hero-img">
+          <img src="https://github.com/Lal1th/Portfolio/blob/main/headshot.png?raw=true" alt="Lalith Nandakumar" />
+        </div>
+      </div>
+    </section>
+
+    <div>
+      <br>
+    </div>
+    <main class="container">
+      <section id="education" aria-label="Education & Certifications" class="reveal">
+        <div class="row-header">
+          <h2 class="row-title">Education & Certifications</h2>
+     
+          <div class="scroller">
+            <button class="scroll-btn" data-scroll="training">
+              <i class="ri-arrow-left-s-line"></i>
+            </button>
+            <button class="scroll-btn" data-scroll="training" data-dir="right">
+              <i class="ri-arrow-right-s-line"></i>
+            </button>
+          </div>
+        </div>
+        <div style="margin-bottom: 8px;"></div>
+          <p style="color: #c0c6d3">
+            The foundation of my expertise: a blend of formal education, certifications, and hands-on learning.
+          </p>
+        
+        <div class="carousel" id="carousel-training">
+          <article class="card" data-modal-target="modal-ucalgary">
+            <div class="poster">
+              <img
+                src="https://placehold.co/600x338/182141/58a6ff?text=University%20of%20Calgary"
+                alt="University of Calgary"
+              />
+              <div class="gradient"></div>
+              <div class="meta">
+                <div class="chips">
+                  <span class="chip">M.S. Data Science</span>
+                  <span class="chip">2024–2025</span>
+                </div>
+                <div class="metric">GPA: 4.0/4.0</div>
+              </div>
+            </div>
+            <div class="content">
+              <div class="name">University of Calgary • AB, Canada</div>
+              <div class="desc">
+                Masters in Data Science. Focus: Stats, Cloud, ML.
+              </div>
+              <div class="action">
+                <i class="ri-information-line"></i> Details
+              </div>
+            </div>
+          </article>
+          <article class="card" data-modal-target="modal-vit-diploma">
+            <div class="poster">
+              <img
+                src="https://placehold.co/600x338/182141/58a6ff?text=Vellore%20Institute%20of%20Technology"
+                alt="VIT"
+              />
+              <div class="gradient"></div>
+              <div class="meta">
+                <div class="chips">
+                  <span class="chip">Diploma Data Science</span>
+                  <span class="chip">2023–2024</span>
+                </div>
+                <div class="metric">GPA: 4.0/4.0</div>
+              </div>
+            </div>
+            <div class="content">
+              <div class="name">Vellore Institute of Technology</div>
+              <div class="desc">
+                Diploma. Focus: Neural Networks, ANN, CNN, LSTM, Spark.
+              </div>
+              <div class="action">
+                <i class="ri-information-line"></i> Details
+              </div>
+            </div>
+          </article>
+          <article class="card" data-modal-target="modal-aws">
+            <div class="poster">
+              <img
+                src="https://placehold.co/600x338/182141/58a6ff?text=AWS%20Certified"
+                alt="AWS"
+              />
+              <div class="gradient"></div>
+              <div class="meta">
+                <div class="chips">
+                  <span class="chip">Certification</span>
+                  <span class="chip">Cloud</span>
+                </div>
+                <div class="metric">Certified</div>
+              </div>
+            </div>
+            <div class="content">
+              <div class="name">AWS Certified Cloud Practitioner</div>
+              <div class="desc">
+                Validated expertise in AWS cloud concepts, services, and architecture.
+              </div>
+              <div class="action">
+                <i class="ri-information-line"></i> Details
+              </div>
+            </div>
+          </article>
+          <article class="card" data-modal-target="modal-databricks">
+            <div class="poster">
+              <img
+                src="https://placehold.co/600x338/182141/58a6ff?text=Databricks"
+                alt="Databricks"
+              />
+              <div class="gradient"></div>
+              <div class="meta">
+                <div class="chips">
+                  <span class="chip">Certification</span>
+                  <span class="chip">Big Data</span>
+                </div>
+                <div class="metric">Certified</div>
+              </div>
+            </div>
+            <div class="content">
+              <div class="name">Databricks Certification</div>
+              <div class="desc">
+                Hands-on experience with Databricks for data engineering and analytics.
+              </div>
+              <div class="action">
+                <i class="ri-information-line"></i> Details
+              </div>
+            </div>
+          </article>
+        </div>
+      </section> 
+
+      <section id="projects" aria-label="Projects & Hackathons" class="reveal">
+        <div class="row-header">
+          <h2 class="row-title">Projects & Hackathons</h2>
+          <div class="scroller">
+            <button class="scroll-btn" data-scroll="ft">
+              <i class="ri-arrow-left-s-line"></i>
+            </button>
+            <button class="scroll-btn" data-scroll="ft" data-dir="right">
+              <i class="ri-arrow-right-s-line"></i>
+            </button>
+          </div>
+          
+        </div>
+        <div style="margin-bottom: 8px;"></div>
+        <p style="color: #c0c6d3">
+          Where models meet the real world: a curated set of projects where I engineered and deployed data and AI solutions to solve actual problems.
+        </p>
+        
+        <div class="carousel" id="carousel-ft">
+          <article class="card" data-modal-target="modal-keyera">
+            <div class="poster">
+              <img
+                src="https://github.com/Lal1th/Portfolio/blob/main/Hac_img.jpg?raw=true"
+                alt="AWSxKeyera Hackathon"
+              />
+              <div class="gradient"></div>
+              <div class="meta">
+                <div class="chips">
+                  <span class="chip">AWS QuickSight</span>
+                  <span class="chip">BI</span>
+                </div>
+                <div class="metric">3rd Place</div>
+              </div>
+            </div>
+            <div class="content">
+              <div class="name">AWSxKeyera Data Analytics Hackathon</div>
+              <div class="desc">
+                Developed a BI dashboard from scratch in a high-intensity build.
+              </div>
+              <div class="action">
+                <i class="ri-play-mini-fill"></i> Case Study
+              </div>
+            </div>
+          </article>
+
+          <article class="card" data-modal-target="modal-urban">
+            <div class="poster">
+              <img
+                src="https://placehold.co/600x338/182141/58a6ff?text=Urban%20System%20Hackathon"
+                alt="Urban System Hackathon"
+              />
+              <div class="gradient"></div>
+              <div class="meta">
+                <div class="chips">
+                  <span class="chip">Neo4j</span>
+                  <span class="chip">Graph ML</span>
+                  <span class="chip">Python</span>
+                </div>
+                <div class="metric">Hackathon</div>
+              </div>
+            </div>
+            <div class="content">
+              <div class="name">Urban System Hackathon</div>
+              <div class="desc">
+                Graph-based ML models to analyze relational employee-project data.
+              </div>
+              <div class="action">
+                <i class="ri-play-mini-fill"></i> Case Study
+              </div>
+            </div>
+          </article>
+
+          <article class="card" data-modal-target="modal-electricity">
+            <div class="poster">
+              <img
+                src="https://placehold.co/600x338/182141/58a6ff?text=Electricity%20Forecasting"
+                alt="Electricity Forecasting"
+              />
+              <div class="gradient"></div>
+              <div class="meta">
+                <div class="chips">
+                  <span class="chip">CI/CD</span>
+                  <span class="chip">AWS Lambda</span>
+                  <span class="chip">Streamlit</span>
+                </div>
+                <div class="metric">Project</div>
+              </div>
+            </div>
+            <div class="content">
+              <div class="name">Electricity Forecasting Pipeline</div>
+              <div class="desc">
+                Cloud-native data pipeline (EIA API → AWS → Streamlit) for forecasting.
+              </div>
+              <div class="action">
+                <i class="ri-play-mini-fill"></i> Case Study
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="skills" aria-label="Skills" class="reveal">
+        <div class="row-header">
+          <h2 class="row-title">Skills</h2>
+        </div>
+        <div style="margin-bottom: 8px;"></div>
+            <p style="color: #c0c6d3">
+                My toolbox for building, deploying, and scaling data/AI solutions: LLMs, cloud, dashboards, pipelines, and more.
+            </p>
+        
+        <div class="skills-grid">
+          <div class="skillcard">
+            <h4>Data Science & AI</h4>
+            <div class="skillchips">
+              <span class="chip">Predictive Analysis</span><span class="chip">LLM</span
+              ><span class="chip">AI Agents</span><span class="chip">Prompt Eng</span
+              ><span class="chip">RAG</span><span class="chip">LangChain</span
+              ><span class="chip">LangGraph</span><span class="chip">ETL</span>
+              <span class="chip">EDA</span><span class="chip">Docker</span>
+            </div>
+          </div>
+          <div class="skillcard">
+            <h4>Tools & Platforms</h4>
+            <div class="skillchips">
+              <span class="chip">Python</span><span class="chip">Tensorflow</span
+              ><span class="chip">PyTorch</span><span class="chip">Prophet</span
+              ><span class="chip">Pyspark</span><span class="chip">Sklearn</span
+              ><span class="chip">R</span><span class="chip">Git</span
+              ><span class="chip">SQL</span><span class="chip">AWS</span
+              ><span class="chip">Neo4j</span><span class="chip">Streamlit</span>
+            </div>
+          </div>
+          <div class="skillcard">
+            <h4>Visualization</h4>
+            <div class="skillchips">
+              <span class="chip">Power BI</span
+              ><span class="chip">QuickSight</span
+              ><span class="chip">Tableau</span
+              ><span class="chip">Plotly Express</span
+              ><span class="chip">Dashboards</span>
+            </div>
+          </div>
+          <div class="skillcard">
+            <h4>Soft Skills</h4>
+            <div class="skillchips">
+              <span class="chip">Data Presentation</span
+              ><span class="chip">Stakeholder Engagement</span
+              ><span class="chip">Time Management</span><span class="chip">Prioritization</span
+              ><span class="chip">Collaboration</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="experience" aria-label="Work Experience" class="reveal">
+        <div class="row-header">
+          <h2 class="row-title">Work Experience</h2>
+          <div class="scroller">
+            <button class="scroll-btn" data-scroll="dep">
+              <i class="ri-arrow-left-s-line"></i>
+            </button>
+            <button class="scroll-btn" data-scroll="dep" data-dir="right">
+              <i class="ri-arrow-right-s-line"></i>
+            </button>
+          </div>
+        </div>
+        <div style="margin-bottom: 8px;"></div>
+        <p style="color: #c0c6d3">
+          Real-world impact through data science: a selection of my professional
+          experience where I've driven measurable outcomes using data-driven strategies.
+        </p>
+        
+        <div class="carousel" id="carousel-dep">
+          <article class="card" data-modal-target="modal-sensorup">
+            <div class="poster">
+              <img
+                src="https://placehold.co/600x338/182141/58a6ff?text=SensorUp"
+                alt="SensorUp"
+              />
+              <div class="gradient"></div>
+              <div class="meta">
+                <div class="chips">
+                  <span class="chip">Data Science Intern</span
+                  ><span class="chip">Oil & Gas</span>
+                </div>
+                <div class="metric">2025</div>
+              </div>
+            </div>
+            <div class="content">
+              <div class="name">SensorUp • Data Science Intern</div>
+              <div class="desc">
+                Built predictive monitoring system with ML for time-series.
+              </div>
+              <div class="action">
+                <i class="ri-information-line"></i> Details
+              </div>
+            </div>
+          </article>
+          <article class="card" data-modal-target="modal-ucalgary-research">
+            <div class="poster">
+              <img
+                src="https://placehold.co/600x338/182141/58a6ff?text=UCalgary%20Research"
+                alt="UCalgary Research"
+              />
+              <div class="gradient"></div>
+              <div class="meta">
+                <div class="chips">
+                  <span class="chip">Graduate Research Intern</span>
+                </div>
+                <div class="metric">2025-Present</div>
+              </div>
+            </div>
+            <div class="content">
+              <div class="name">UCalgary & Alberta Children's Hospital</div>
+              <div class="desc">
+                Leveraged ML and stats to build predictive models of child behavioral outcomes.
+              </div>
+              <div class="action">
+                <i class="ri-information-line"></i> Details
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="contact" style="text-align: center; margin-top: 64px; background: var(--card); padding: 2rem; border-radius: 16px; border: 1px solid var(--ring);" class="reveal">
+        <div class="row-header" style="justify-content: center;"><h2 class="row-title">Get In Touch</h2></div>
+        <p style="color: #c0c6d3; max-width: 500px; margin: 1rem auto;">
+          I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+        </p>
+        <div class="links" style="justify-content: center; margin-top: 1.5rem;">
+          <a class="btn primary" href="mailto:lalithpathapati@gmail.com" target="_blank"
+            ><i class="ri-send-plane-line"></i> Email Me</a
+          >
+          <a class="btn ghost" href="https://www.linkedin.com/in/Lalith-N" target="_blank"
+            ><i class="ri-linkedin-box-fill"></i> LinkedIn</a
+          >
+          <a class="btn ghost" href="https://github.com/Lal1th" target="_blank"
+            ><i class="ri-github-fill"></i> GitHub</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <footer class="container">
+      <div>
+        © <span id="year"></span> Lalith Nandakumar &mdash; All rights reserved.
+        | Calgary, AB, Canada
+      </div>
+    </footer>
+
+    <!-- UCalgary Education -->
+    <div
+      class="modal"
+      id="modal-ucalgary"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="ucalgary-title"
+    >
+      <div class="sheet">
+        <div class="cover">
+          <img src="https://placehold.co/1600x600/182141/58a6ff?text=University%20of%20Calgary" alt="UCalgary" />
+          <div class="fade"></div>
+        </div>
+        <div class="body">
+          <div class="topline">
+            <h3 id="ucalgary-title">M.S. in Data Science (2024–2025)</h3>
+            <button class="btn" data-close>Close</button>
+          </div>
+          <div class="two">
+            <div class="section">
+              <h5>University of Calgary • GPA: 4.0/4.0</h5>
+              <p>Relevant Coursework:</p>
+              <ul>
+                <li>Power BI & Data Visualization</li>
+                <li>Statistical Modelling</li>
+                <li>Cloud Architecture</li>
+                <li>Database Management</li>
+                <li>Feature Development & Data Analysis</li>
+                <li>Machine Learning</li>
+              </ul>
+            </div>
+            <div class="section">
+              <h5>Stack</h5>
+              <div class="skillchips">
+                <span class="chip">Python</span><span class="chip">R</span
+                ><span class="chip">Power BI</span
+                ><span class="chip">AWS</span><span class="chip">SQL</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div
+      class="modal"
+      id="modal-vit-diploma"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="vit-title"
+    >
+      <div class="sheet">
+        <div class="cover">
+          <img src="https://placehold.co/1600x600/182141/58a6ff?text=Vellore%20Institute%20of%20Technology" alt="VIT" />
+          <div class="fade"></div>
+        </div>
+        <div class="body">
+          <div class="topline">
+            <h3 id="vit-title">Diploma in Data Science (2023–2024)</h3>
+            <button class="btn" data-close>Close</button>
+          </div>
+          <div class="two">
+            <div class="section">
+              <h5>Vellore Institute of Technology • GPA: 4.0/4.0</h5>
+              <p>Relevant Coursework:</p>
+              <ul>
+                <li>Artificial Neural Networks (ANN)</li>
+                <li>Convolutional Neural Networks (CNN)</li>
+                <li>LSTM (Long Short-Term Memory)</li>
+                <li>Neural Networks</li>
+                <li>Spark & Pyspark</li>
+              </ul>
+            </div>
+            <div class="section">
+              <h5>Stack</h5>
+              <div class="skillchips">
+                <span class="chip">Python</span><span class="chip">Tensorflow</span
+                ><span class="chip">Keras</span><span class="chip">Pyspark</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div
+      class="modal"
+      id="modal-aws"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="aws-title"
+    >
+      <div class="sheet">
+        <div class="cover">
+          <img src="https://placehold.co/1600x600/182141/58a6ff?text=AWS%20Certified" alt="AWS" />
+          <div class="fade"></div>
+        </div>
+        <div class="body">
+          <div class="topline">
+            <h3 id="aws-title">AWS Certified Cloud Practitioner</h3>
+            <button class="btn" data-close>Close</button>
+          </div>
+          <div class="two">
+            <div class="section">
+              <h5>Focus</h5>
+              <ul>
+                <li>Validates foundational understanding of AWS cloud concepts.</li>
+                <li>Covers core AWS services, security, architecture, and pricing.</li>
+              </ul>
+            </div>
+            <div class="section">
+              <h5>Services</h5>
+              <div class="skillchips">
+                <span class="chip">EC2</span><span class="chip">S3</span
+                ><span class="chip">RDS</span><span class="chip">VPC</span
+                ><span class="chip">Lambda</span><span class="chip">IAM</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div
+      class="modal"
+      id="modal-databricks"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="databricks-title"
+    >
+      <div class="sheet">
+        <div class="cover">
+          <img src="https://placehold.co/1600x600/182141/58a6ff?text=Databricks" alt="Databricks" />
+          <div class="fade"></div>
+        </div>
+        <div class="body">
+          <div class="topline">
+            <h3 id="databricks-title">Databricks Certification</h3>
+            <button class="btn" data-close>Close</button>
+          </div>
+          <div class="two">
+            <div class="section">
+              <h5>Focus</h5>
+              <ul>
+                <li>Demonstrates proficiency in the Databricks Lakehouse Platform.</li>
+                <li>Covers data engineering, data science, and ML workflows using Spark.</li>
+              </ul>
+            </div>
+            <div class="section">
+              <h5>Stack</h5>
+              <div class="skillchips">
+                <span class="chip">Databricks</span><span class="chip">Spark SQL</span
+                ><span class="chip">Delta Lake</span><span class="chip">MLflow</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div
+      class="modal"
+      id="modal-keyera"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="keyera-title"
+    >
+      <div class="sheet">
+        <div class="cover">
+          <img src="https://github.com/Lal1th/Portfolio/blob/main/Hac_img.jpg?raw=true" alt="Keyera Hackathon" />
+          <div class="fade"></div>
+        </div>
+        <div class="body">
+          <div class="topline">
+            <h3 id="keyera-title">AWSxKeyera Hackathon (3rd Place)</h3>
+            <button class="btn" data-close>Close</button>
+          </div>
+          <div class="two">
+            <div class="section">
+              <h5>Accomplishments</h5>
+              <ul>
+                <li>Won 3rd place in a competitive Data Analytics Case Competition.</li>
+                <li>Collaborated with a four-member team to develop a BI dashboard from start to finish.</li>
+                <li>Communicated insights to Keyera and AWS partners, highlighting optimization strategies.</li>
+              </ul>
+            </div>
+            <div class="section">
+              <h5>Stack</h5>
+              <div class="skillchips">
+                <span class="chip">AWS QuickSight</span><span class="chip">Business Intelligence</span
+                ><span class="chip">Data Visualization</span><span class="chip">Teamwork</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div
+      class="modal"
+      id="modal-urban"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="urban-title"
+    >
+      <div class="sheet">
+        <div class="cover">
+          <img src="https://placehold.co/1600x600/182141/58a6ff?text=Urban%20System%20Hackathon" alt="Urban Hackathon" />
+          <div class="fade"></div>
+        </div>
+        <div class="body">
+          <div class="topline">
+            <h3 id="urban-title">Urban System Hackathon</h3>
+            <button class="btn" data-close>Close</button>
+          </div>
+          <div class="two">
+            <div class="section">
+              <h5>Project</h5>
+              <ul>
+                <li>Developed graph-based ML models using Neo4j to analyze relational employee-project data.</li>
+                <li>Identified patterns in workforce productivity and project success metrics.</li>
+                <li>Implemented predictive analytics pipeline to classify termination risks and optimize staffing.</li>
+              </ul>
+            </div>
+            <div class="section">
+              <h5>Stack</h5>
+              <div class="skillchips">
+                <span class="chip">Neo4j</span><span class="chip">Graph Data Science</span
+                ><span class="chip">Python</span><span class="chip">Pandas</span
+                ><span class="chip">scikit-learn</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div
+      class="modal"
+      id="modal-electricity"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="electricity-title"
+    >
+      <div class="sheet">
+        <div class="cover">
+          <img src="https://placehold.co/1600x600/182141/58a6ff?text=Electricity%20Forecasting" alt="Electricity Project" />
+          <div class="fade"></div>
+        </div>
+        <div class="body">
+          <div class="topline">
+            <h3 id="electricity-title">Electricity Forecasting Pipeline</h3>
+            <button class="btn" data-close>Close</button>
+          </div>
+          <div class="two">
+            <div class="section">
+              <h5>Architecture</h5>
+              <p>
+                Designed a cloud-native data pipeline using CI/CD for ingesting, processing, and forecasting large-scale electricity data.
+              </p>
+              <h5>Flow:</h5>
+              <p>
+                EIA API → AWS Lambda → S3 → EC2 → Streamlit
+              </p>
+            </div>
+            <div class="section">
+              <h5>Stack</h5>
+              <div class="skillchips">
+                <span class="chip">AWS Lambda</span><span class="chip">Amazon S3</span
+                ><span class="chip">Amazon EC2</span><span class="chip">Streamlit</span
+                ><span class="chip">CI/CD</span><span class="chip">Time-Series</span>
+              </div>
+               <div class="btns">
+                <a class="btn" href="https://github.com/Lal1th" target="_blank">GitHub</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div
+      class="modal"
+      id="modal-sensorup"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="sensorup-title"
+    >
+      <div class="sheet">
+        <div class="cover">
+          <img src="https://placehold.co/1600x600/182141/58a6ff?text=SensorUp" alt="SensorUp" />
+          <div class="fade"></div>
+        </div>
+        <div class="body">
+          <div class="topline">
+            <h3 id="sensorup-title">SensorUp – Data Science Intern</h3>
+            <button class="btn" data-close>Close</button>
+          </div>
+          <div class="two">
+            <div class="section">
+              <h5>Highlights</h5>
+              <ul>
+                <li>Uncovered critical predictive relationships between SCADA data and emission events.</li>
+                <li>Built predictive monitoring system with ML for time-series forecasting and anomaly detection.</li>
+                <li>Accelerated data analysis by building an intelligent dashboard with AI Agents.</li>
+                <li>Leveraged advanced Agents for generative AI reporting and image classification.</li>
+              </ul>
+            </div>
+            <div class="section">
+              <h5>Stack</h5>
+              <div class="skillchips">
+                <span class="chip">Time-Series</span><span class="chip">ML</span
+                ><span class="chip">AI Agents</span><span class="chip">GenAI</span
+                ><span class="chip">Dashboards</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div
+      class="modal"
+      id="modal-ucalgary-research"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="ucalgary-research-title"
+    >
+      <div class="sheet">
+        <div class="cover">
+          <img src="https://placehold.co/1600x600/182141/58a6ff?text=UCalgary%20Research" alt="UCalgary Research" />
+          <div class="fade"></div>
+        </div>
+        <div class="body">
+          <div class="topline">
+            <h3 id="ucalgary-research-title">UCalgary & Alberta Children's Hospital – Graduate Research Intern</h3>
+            <button class="btn" data-close>Close</button>
+          </div>
+          <div class="two">
+            <div class="section">
+              <h5>Project</h5>
+              <ul>
+                <li>Leveraged machine learning and advanced statistical analyses on multi-modal longitudinal data.</li>
+                <li>Developed predictive models of child behavioral outcomes.</li>
+                <li>Visualized the impact of early-life factors.</li>
+              </ul>
+            </div>
+            <div class="section">
+              <h5>Stack</h5>
+              <div class="skillchips">
+                <span class="chip">R</span><span class="chip">Minitab</span
+                ><span class="chip">Machine Learning</span><span class="chip">Statistics</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Create animated background particles
+      function createParticles() {
+        const particles = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'particle';
+          particle.style.left = Math.random() * 100 + '%';
+          particle.style.top = Math.random() * 100 + '%';
+          particle.style.animationDelay = Math.random() * 20 + 's';
+          particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+          particles.appendChild(particle);
+        }
+      }
+      createParticles();
+
+      // Scroll reveal animation
+      function revealOnScroll() {
+        const reveals = document.querySelectorAll('.reveal');
+        reveals.forEach(element => {
+          const windowHeight = window.innerHeight;
+          const elementTop = element.getBoundingClientRect().top;
+          const elementVisible = 150;
+          
+          if (elementTop < windowHeight - elementVisible) {
+            element.classList.add('active');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', revealOnScroll);
+      revealOnScroll(); // Initial check
+
+      // Mobile Menu
+      const hamburger = document.querySelector('.hamburger');
+      const mobileNav = document.getElementById('main-nav');
+      
+      if (hamburger && mobileNav) {
+        hamburger.addEventListener('click', function() {
+          const isOpen = hamburger.getAttribute('aria-expanded') === 'true';
+          hamburger.setAttribute('aria-expanded', !isOpen);
+          hamburger.classList.toggle('active');
+          mobileNav.classList.toggle('open');
+        });
+
+        mobileNav.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', function() {
+            hamburger.setAttribute('aria-expanded', 'false');
+            hamburger.classList.remove('active');
+            mobileNav.classList.remove('open');
+          });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+              target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+            }
+          });
+        });
+        
+        document.addEventListener('click', function(event) {
+          if (!hamburger.contains(event.target) && !mobileNav.contains(event.target)) {
+            hamburger.setAttribute('aria-expanded', 'false');
+            hamburger.classList.remove('active');
+            mobileNav.classList.remove('open');
+          }
+        });
+      }
+
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      function setupScroll(group) {
+        const left = document.querySelector(
+          `.scroll-btn[data-scroll="${group}"]:not([data-dir])`
+        );
+        const right = document.querySelector(
+          `.scroll-btn[data-scroll="${group}"][data-dir="right"]`
+        );
+        const el = document.getElementById(`carousel-${group}`);
+        if (!el || !left || !right) return;
+        
+        const step = () => Math.min(600, el.clientWidth * 0.9);
+        
+        left.addEventListener("click", () =>
+          el.scrollBy({ left: -step(), behavior: "smooth" })
+        );
+        right.addEventListener("click", () =>
+          el.scrollBy({ left: step(), behavior: "smooth" })
+        );
+      }
+      setupScroll("training");
+      setupScroll("ft");
+      setupScroll("dep");
+
+      const openModal = (id) => {
+        const m = document.getElementById(id);
+        if (!m) return;
+        m.classList.add("open");
+        document.body.style.overflow = 'hidden';
+        
+        const esc = (e) => {
+          if (e.key === "Escape") {
+            close();
+          }
+        };
+        
+        const close = () => {
+          m.classList.remove("open");
+          document.body.style.overflow = '';
+          document.removeEventListener("keydown", esc);
+        };
+        
+        m.querySelector("[data-close]").addEventListener("click", close, {
+          once: true,
+        });
+        
+        m.addEventListener("click", (e) => {
+          if (e.target === m) close();
+        });
+        
+        document.addEventListener("keydown", esc);
+      };
+
+      document.querySelectorAll("[data-modal-target]").forEach((card) => {
+        card.addEventListener("click", (e) => {
+          if (e.target.closest('a')) return;
+          
+          const id = card.getAttribute("data-modal-target");
+          openModal(id);
+        });
+      });
+
+    </script>
+  </body>
+</html>
