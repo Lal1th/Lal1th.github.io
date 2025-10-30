@@ -1,0 +1,1689 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lalith Nandakumar – Data Science Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #3b82f6;
+        --primary-dark: #2563eb;
+        --bg-primary: #0a0e17;
+        --bg-secondary: #131720;
+        --bg-card: #1a1f2e;
+        --text-primary: #e2e8f0;
+        --text-secondary: #94a3b8;
+        --border: #1e293b;
+        --accent-glow: rgba(59, 130, 246, 0.3);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: 'Inter', sans-serif;
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      /* Animated gradient background */
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: 
+          radial-gradient(circle at 15% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+          radial-gradient(circle at 85% 80%, rgba(147, 51, 234, 0.12) 0%, transparent 50%),
+          radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.08) 0%, transparent 70%);
+        animation: gradientShift 15s ease infinite;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      @keyframes gradientShift {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.8; transform: scale(1.1); }
+      }
+
+      .wrapper {
+        position: relative;
+        z-index: 1;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      /* Navigation */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background: rgba(10, 14, 23, 0.8);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--primary), #a78bfa);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: -0.02em;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2.5rem;
+        list-style: none;
+      }
+
+      .nav-links a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-size: 0.95rem;
+        font-weight: 500;
+        position: relative;
+        transition: color 0.3s;
+      }
+
+      .nav-links a::before {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--primary);
+        transition: width 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: var(--text-primary);
+      }
+
+      .nav-links a:hover::before {
+        width: 100%;
+      }
+
+      .nav-cta {
+        display: flex;
+        gap: 1rem;
+      }
+
+      /* Mobile menu */
+      .menu-toggle {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+      }
+
+      .menu-toggle span {
+        width: 25px;
+        height: 2px;
+        background: var(--text-primary);
+        transition: all 0.3s;
+      }
+
+      .menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+
+      .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+      }
+
+      @media (max-width: 768px) {
+        .menu-toggle {
+          display: flex;
+        }
+
+        .nav-links {
+          position: fixed;
+          top: 80px;
+          left: 0;
+          right: 0;
+          background: rgba(10, 14, 23, 0.98);
+          backdrop-filter: blur(20px);
+          flex-direction: column;
+          padding: 2rem;
+          gap: 1.5rem;
+          transform: translateY(-100%);
+          opacity: 0;
+          transition: all 0.3s;
+          border-bottom: 1px solid var(--border);
+        }
+
+        .nav-links.active {
+          transform: translateY(0);
+          opacity: 1;
+        }
+
+        .nav-cta {
+          display: none;
+        }
+      }
+
+      /* Buttons */
+      .btn {
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s;
+        border: none;
+        cursor: pointer;
+      }
+
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+        box-shadow: 0 0 20px var(--accent-glow);
+      }
+
+      .btn-primary:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 30px var(--accent-glow);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: var(--text-primary);
+        border: 1px solid var(--border);
+      }
+
+      .btn-secondary:hover {
+        border-color: var(--primary);
+        background: rgba(59, 130, 246, 0.1);
+      }
+
+      /* Hero Section */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding-top: 80px;
+        position: relative;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 4rem;
+        align-items: center;
+      }
+
+      .hero-content h1 {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 700;
+        line-height: 1.1;
+        margin-bottom: 1rem;
+        letter-spacing: -0.02em;
+      }
+
+      .gradient-text {
+        background: linear-gradient(135deg, var(--primary), #a78bfa, #ec4899);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: gradientFlow 8s linear infinite;
+      }
+
+      @keyframes gradientFlow {
+        0% { background-position: 0% center; }
+        100% { background-position: 200% center; }
+      }
+
+      .hero-content .subtitle {
+        font-size: 1.25rem;
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+        line-height: 1.7;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-bottom: 2rem;
+      }
+
+      .tech-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 2rem;
+      }
+
+      .tag {
+        padding: 0.5rem 1rem;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        transition: all 0.3s;
+      }
+
+      .tag:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+        transform: translateY(-2px);
+      }
+
+      .hero-image {
+        position: relative;
+      }
+
+      .hero-image img {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        border-radius: 20px;
+        border: 2px solid var(--border);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        animation: heroImageFloat 6s ease-in-out infinite;
+      }
+
+      @keyframes heroImageFloat {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-15px) rotate(1deg); }
+      }
+
+      .hero-image::before {
+        content: '';
+        position: absolute;
+        top: -20%;
+        right: -20%;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, var(--accent-glow), transparent);
+        border-radius: 50%;
+        animation: pulse 4s ease-in-out infinite;
+        z-index: -1;
+      }
+
+      @keyframes pulse {
+        0%, 100% { transform: scale(1); opacity: 0.5; }
+        50% { transform: scale(1.2); opacity: 0.8; }
+      }
+
+      /* Social Links */
+      .social-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .social-links a {
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        color: var(--text-secondary);
+        font-size: 1.2rem;
+        transition: all 0.3s;
+      }
+
+      .social-links a:hover {
+        background: var(--primary);
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 20px var(--accent-glow);
+      }
+
+      /* Section Styles */
+      section {
+        padding: 5rem 0;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s;
+      }
+
+      section.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .section-header h2 {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: clamp(2rem, 4vw, 2.5rem);
+        margin-bottom: 0.5rem;
+        position: relative;
+        display: inline-block;
+      }
+
+      .section-header h2::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, var(--primary), #a78bfa);
+        border-radius: 2px;
+      }
+
+      .section-header p {
+        color: var(--text-secondary);
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 1rem auto 0;
+      }
+
+      /* Card Grid */
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 2rem;
+        transition: all 0.4s;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, var(--accent-glow), transparent);
+        opacity: 0;
+        transition: opacity 0.4s;
+      }
+
+      .card:hover {
+        transform: translateY(-10px);
+        border-color: var(--primary);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      }
+
+      .card:hover::before {
+        opacity: 1;
+      }
+
+      .card-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .card-icon {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, var(--primary), #a78bfa);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        color: white;
+      }
+
+      .card h3 {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.3rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .card p {
+        color: var(--text-secondary);
+        margin-bottom: 1rem;
+        line-height: 1.7;
+      }
+
+      .card-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+
+      .card-tag {
+        padding: 0.25rem 0.75rem;
+        background: rgba(59, 130, 246, 0.1);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        border-radius: 12px;
+        font-size: 0.75rem;
+        color: var(--primary);
+      }
+
+      .card-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border);
+      }
+
+      .card-meta span {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+      }
+
+      /* Skills Section */
+      .skills-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .skill-category {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 2rem;
+        transition: all 0.3s;
+      }
+
+      .skill-category:hover {
+        border-color: var(--primary);
+        transform: translateY(-5px);
+      }
+
+      .skill-category h3 {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+        color: var(--primary);
+      }
+
+      .skill-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+
+      .skill-item {
+        padding: 0.5rem 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        font-size: 0.85rem;
+        transition: all 0.3s;
+      }
+
+      .skill-item:hover {
+        background: rgba(59, 130, 246, 0.2);
+        border-color: var(--primary);
+        transform: scale(1.05);
+      }
+
+      /* Contact Section */
+      .contact-section {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 4rem 2rem;
+        text-align: center;
+        margin: 3rem 0;
+      }
+
+      .contact-section h2 {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .contact-section p {
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .contact-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      /* Footer */
+      footer {
+        padding: 2rem 0;
+        text-align: center;
+        color: var(--text-secondary);
+        border-top: 1px solid var(--border);
+      }
+
+      /* Modal */
+      .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(10px);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        padding: 2rem;
+      }
+
+      .modal.active {
+        display: flex;
+        animation: fadeIn 0.3s;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      .modal-content {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        max-width: 800px;
+        width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+        animation: slideUp 0.4s;
+      }
+
+      @keyframes slideUp {
+        from { 
+          transform: translateY(50px);
+          opacity: 0;
+        }
+        to { 
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .modal-header {
+        padding: 2rem;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .modal-header h3 {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.5rem;
+      }
+
+      .modal-close {
+        background: none;
+        border: none;
+        color: var(--text-secondary);
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: color 0.3s;
+      }
+
+      .modal-close:hover {
+        color: var(--text-primary);
+      }
+
+      .modal-body {
+        padding: 2rem;
+      }
+
+      .modal-body h4 {
+        color: var(--primary);
+        margin-bottom: 1rem;
+      }
+
+      .modal-body ul {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .modal-body li {
+        padding: 0.5rem 0;
+        padding-left: 1.5rem;
+        position: relative;
+      }
+
+      .modal-body li::before {
+        content: '▹';
+        position: absolute;
+        left: 0;
+        color: var(--primary);
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .hero-grid {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+          text-align: center;
+        }
+
+        .hero-image {
+          order: -1;
+          display: flex;
+          justify-content: center;
+        }
+
+        .hero-actions {
+          justify-content: center;
+        }
+
+        .social-links {
+          justify-content: center;
+        }
+
+        .tech-tags {
+          justify-content: center;
+        }
+
+        .card-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .skills-container {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Scroll indicator */
+      .scroll-indicator {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: var(--border);
+        z-index: 99;
+      }
+
+      .scroll-progress {
+        height: 100%;
+        background: linear-gradient(90deg, var(--primary), #a78bfa);
+        width: 0%;
+        transition: width 0.1s;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="scroll-indicator">
+      <div class="scroll-progress" id="scrollProgress"></div>
+    </div>
+
+    <nav>
+      <div class="nav-content">
+        <div class="logo">LN</div>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#education">Education</a></li>
+          <li><a href="#skills">Skills</a></li>
+        </ul>
+        <div class="nav-cta">
+          <a href="mailto:lalithpathapati@gmail.com" class="btn btn-secondary">
+            <i class="ri-mail-line"></i> Contact
+          </a>
+          <a href="https://github.com/Lal1th/Portfolio/blob/main/LALITH_CV.pdf" target="_blank" class="btn btn-primary">
+            <i class="ri-file-download-line"></i> Resume
+          </a>
+        </div>
+        <button class="menu-toggle" id="menuToggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+
+    <div class="wrapper">
+      <section class="hero">
+        <div class="container">
+          <div class="hero-grid">
+            <div class="hero-content">
+              <h1>
+                Hi, I'm <span class="gradient-text">Lalith Nandakumar</span>
+              </h1>
+              <p class="subtitle">
+                Data Scientist specializing in predictive analytics, cloud-native data pipelines, and AI automation. I transform complex data into actionable insights that drive business metrics.
+              </p>
+              <div class="hero-actions">
+                <a href="#experience" class="btn btn-primary">
+                  <i class="ri-briefcase-line"></i> View Experience
+                </a>
+                <a href="#projects" class="btn btn-secondary">
+                  <i class="ri-stack-line"></i> My Projects
+                </a>
+              </div>
+              <div class="social-links">
+                <a href="https://github.com/Lal1th" target="_blank" aria-label="GitHub">
+                  <i class="ri-github-fill"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/Lalith-N" target="_blank" aria-label="LinkedIn">
+                  <i class="ri-linkedin-box-fill"></i>
+                </a>
+                <a href="mailto:lalithpathapati@gmail.com" aria-label="Email">
+                  <i class="ri-mail-line"></i>
+                </a>
+              </div>
+              <div class="tech-tags">
+                <span class="tag">LLMs & RAG</span>
+                <span class="tag">AI Agents</span>
+                <span class="tag">AWS & Cloud</span>
+                <span class="tag">Python & SQL</span>
+                <span class="tag">Data Visualization</span>
+              </div>
+            </div>
+            <div class="hero-image">
+              <img src="https://github.com/Lal1th/Portfolio/blob/main/headshot.png?raw=true" alt="Lalith Nandakumar" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="experience">
+        <div class="container">
+          <div class="section-header">
+            <h2>Professional Experience</h2>
+            <p>Where I've applied my skills to create impact</p>
+          </div>
+          <div class="card-grid">
+            <div class="card" data-modal="sensorup">
+              <div class="card-content">
+                <div class="card-icon" style="background: none; padding: 0;">
+                  <img src="https://github.com/Lal1th/Portfolio/blob/main/Sensor_Up_RGB.png?raw=true" alt="SensorUp" style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px;" />
+                </div>
+                <h3>Data Science Intern</h3>
+                <p>SensorUp • Oil & Gas Analytics</p>
+                <p style="margin-top: 1rem;">Built predictive monitoring system with ML for time-series forecasting and anomaly detection using SCADA data.</p>
+                <div class="card-tags">
+                  <span class="card-tag">Time-Series</span>
+                  <span class="card-tag">ML</span>
+                  <span class="card-tag">AI Agents</span>
+                </div>
+                <div class="card-meta">
+                  <span>2025</span>
+                  <span style="color: var(--primary); font-weight: 600;">Current</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" data-modal="ucalgary-research">
+              <div class="card-content">
+                <div class="card-icon" style="background: none; padding: 0;">
+                  <img src="https://github.com/Lal1th/Portfolio/blob/main/achri.png?raw=true" alt="Alberta Children's Hospital" style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px;" />
+                </div>
+                <h3>Graduate Research Intern</h3>
+                <p>UCalgary & Alberta Children's Hospital</p>
+                <p style="margin-top: 1rem;">Leveraged ML and statistics on multi-modal longitudinal data to build predictive models of child behavioral outcomes.</p>
+                <div class="card-tags">
+                  <span class="card-tag">Machine Learning</span>
+                  <span class="card-tag">R</span>
+                  <span class="card-tag">Statistics</span>
+                </div>
+                <div class="card-meta">
+                  <span>2025 - Present</span>
+                  <span style="color: var(--primary); font-weight: 600;">Research</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects">
+        <div class="container">
+          <div class="section-header">
+            <h2>Featured Projects</h2>
+            <p>Real-world applications of data science and AI</p>
+          </div>
+          <div class="card-grid">
+            <div class="card" data-modal="keyera">
+              <div class="card-content">
+                <div class="card-icon" style="background: none; padding: 0; width: 100%; height: 120px;">
+                  <img src="https://github.com/Lal1th/Portfolio/blob/main/Hac_img.jpg?raw=true" alt="Keyera Hackathon" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;" />
+                </div>
+                <h3>AWSxKeyera Hackathon</h3>
+                <p>Developed comprehensive BI dashboard from scratch, securing 3rd place in competitive data analytics competition.</p>
+                <div class="card-tags">
+                  <span class="card-tag">AWS QuickSight</span>
+                  <span class="card-tag">BI</span>
+                  <span class="card-tag">Data Viz</span>
+                </div>
+                <div class="card-meta">
+                  <span>Competition</span>
+                  <span style="color: var(--primary); font-weight: 600;">3rd Place</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" data-modal="gaming">
+              <div class="card-content">
+                <div class="card-icon">
+                  <i class="ri-gamepad-fill"></i>
+                </div>
+                <h3>Gaming Analytics Dashboard</h3>
+                <p>Live interactive dashboard analyzing gaming industry trends, player statistics, and market insights with real-time data visualization.</p>
+                <div class="card-tags">
+                  <span class="card-tag">Streamlit</span>
+                  <span class="card-tag">Python</span>
+                  <span class="card-tag">Live Data</span>
+                </div>
+                <div class="card-meta">
+                  <span>Live Project</span>
+                  <span style="color: var(--primary); font-weight: 600;">
+                    <a href="https://lalithn.streamlit.app/" target="_blank" style="color: var(--primary); text-decoration: none;">
+                      View Live →
+                    </a>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" data-modal="urban">
+              <div class="card-content">
+                <div class="card-icon">
+                  <i class="ri-node-tree"></i>
+                </div>
+                <h3>Urban System Hackathon</h3>
+                <p>Built graph-based ML models using Neo4j to analyze workforce patterns and predict termination risks.</p>
+                <div class="card-tags">
+                  <span class="card-tag">Neo4j</span>
+                  <span class="card-tag">Graph ML</span>
+                  <span class="card-tag">Python</span>
+                </div>
+                <div class="card-meta">
+                  <span>Hackathon</span>
+                  <span style="color: var(--primary); font-weight: 600;">Graph Analytics</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" data-modal="electricity">
+              <div class="card-content">
+                <div class="card-icon">
+                  <i class="ri-flashlight-fill"></i>
+                </div>
+                <h3>Electricity Forecasting</h3>
+                <p>Cloud-native pipeline with CI/CD automation for real-time electricity demand forecasting and visualization.</p>
+                <div class="card-tags">
+                  <span class="card-tag">AWS Lambda</span>
+                  <span class="card-tag">Streamlit</span>
+                  <span class="card-tag">CI/CD</span>
+                </div>
+                <div class="card-meta">
+                  <span>Personal Project</span>
+                  <span style="color: var(--primary); font-weight: 600;">Production</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="education">
+        <div class="container">
+          <div class="section-header">
+            <h2>Education & Certifications</h2>
+            <p>Academic foundation and professional credentials</p>
+          </div>
+          <div class="card-grid">
+            <div class="card" data-modal="ucalgary">
+              <div class="card-content">
+                <div class="card-icon" style="background: none; padding: 0; width: 100%; height: 120px;">
+                  <img src="https://github.com/Lal1th/Portfolio/blob/main/uoc.jpg?raw=true" alt="University of Calgary" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;" />
+                </div>
+                <h3>M.S. in Data Science</h3>
+                <p>University of Calgary • Alberta, Canada</p>
+                <div class="card-tags">
+                  <span class="card-tag">Statistical Modelling</span>
+                  <span class="card-tag">Cloud Architecture</span>
+                  <span class="card-tag">Machine Learning</span>
+                </div>
+                <div class="card-meta">
+                  <span>2024 - 2025</span>
+                  <span style="color: var(--primary); font-weight: 600;">GPA: 4.0/4.0</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" data-modal="vit">
+              <div class="card-content">
+                <div class="card-icon">
+                  <i class="ri-book-open-fill"></i>
+                </div>
+                <h3>Diploma in Data Science</h3>
+                <p>Vellore Institute of Technology</p>
+                <div class="card-tags">
+                  <span class="card-tag">Neural Networks</span>
+                  <span class="card-tag">CNN & LSTM</span>
+                  <span class="card-tag">Spark</span>
+                </div>
+                <div class="card-meta">
+                  <span>2023 - 2024</span>
+                  <span style="color: var(--primary); font-weight: 600;">GPA: 4.0/4.0</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" data-modal="aws-cert">
+              <div class="card-content">
+                <div class="card-icon">
+                  <i class="ri-award-fill"></i>
+                </div>
+                <h3>AWS Certified</h3>
+                <p>Cloud Practitioner Certification</p>
+                <div class="card-tags">
+                  <span class="card-tag">EC2</span>
+                  <span class="card-tag">S3</span>
+                  <span class="card-tag">Lambda</span>
+                  <span class="card-tag">IAM</span>
+                </div>
+                <div class="card-meta">
+                  <span>Amazon Web Services</span>
+                  <span style="color: var(--primary); font-weight: 600;">Certified</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" data-modal="databricks-cert">
+              <div class="card-content">
+                <div class="card-icon">
+                  <i class="ri-database-2-fill"></i>
+                </div>
+                <h3>Databricks Certified</h3>
+                <p>Lakehouse Platform Specialist</p>
+                <div class="card-tags">
+                  <span class="card-tag">Spark SQL</span>
+                  <span class="card-tag">Delta Lake</span>
+                  <span class="card-tag">MLflow</span>
+                </div>
+                <div class="card-meta">
+                  <span>Databricks</span>
+                  <span style="color: var(--primary); font-weight: 600;">Certified</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects">
+        <div class="container">
+          <div class="section-header">
+            <h2>Featured Projects</h2>
+            <p>Real-world applications of data science and AI</p>
+          </div>
+          <div class="card-grid">
+            <div class="card" data-modal="keyera">
+              <div class="card-content">
+                <div class="card-icon">
+                  <i class="ri-trophy-fill"></i>
+                </div>
+                <h3>AWSxKeyera Hackathon</h3>
+                <p>Developed comprehensive BI dashboard from scratch, securing 3rd place in competitive data analytics competition.</p>
+                <div class="card-tags">
+                  <span class="card-tag">AWS QuickSight</span>
+                  <span class="card-tag">BI</span>
+                  <span class="card-tag">Data Viz</span>
+                </div>
+                <div class="card-meta">
+                  <span>Competition</span>
+                  <span style="color: var(--primary); font-weight: 600;">3rd Place</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" data-modal="urban">
+              <div class="card-content">
+                <div class="card-icon">
+                  <i class="ri-node-tree"></i>
+                </div>
+                <h3>Urban System Hackathon</h3>
+                <p>Built graph-based ML models using Neo4j to analyze workforce patterns and predict termination risks.</p>
+                <div class="card-tags">
+                  <span class="card-tag">Neo4j</span>
+                  <span class="card-tag">Graph ML</span>
+                  <span class="card-tag">Python</span>
+                </div>
+                <div class="card-meta">
+                  <span>Hackathon</span>
+                  <span style="color: var(--primary); font-weight: 600;">Graph Analytics</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" data-modal="electricity">
+              <div class="card-content">
+                <div class="card-icon">
+                  <i class="ri-flashlight-fill"></i>
+                </div>
+                <h3>Electricity Forecasting</h3>
+                <p>Cloud-native pipeline with CI/CD automation for real-time electricity demand forecasting and visualization.</p>
+                <div class="card-tags">
+                  <span class="card-tag">AWS Lambda</span>
+                  <span class="card-tag">Streamlit</span>
+                  <span class="card-tag">CI/CD</span>
+                </div>
+                <div class="card-meta">
+                  <span>Personal Project</span>
+                  <span style="color: var(--primary); font-weight: 600;">Production</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills">
+        <div class="container">
+          <div class="section-header">
+            <h2>Technical Expertise</h2>
+            <p>Tools and technologies I work with daily</p>
+          </div>
+          <div class="skills-container">
+            <div class="skill-category">
+              <h3>Data Science & AI</h3>
+              <div class="skill-list">
+                <span class="skill-item">Predictive Analytics</span>
+                <span class="skill-item">LLMs</span>
+                <span class="skill-item">AI Agents</span>
+                <span class="skill-item">RAG</span>
+                <span class="skill-item">LangChain</span>
+                <span class="skill-item">LangGraph</span>
+                <span class="skill-item">ETL</span>
+                <span class="skill-item">EDA</span>
+              </div>
+            </div>
+
+            <div class="skill-category">
+              <h3>Development & Tools</h3>
+              <div class="skill-list">
+                <span class="skill-item">Python</span>
+                <span class="skill-item">TensorFlow</span>
+                <span class="skill-item">PyTorch</span>
+                <span class="skill-item">Scikit-learn</span>
+                <span class="skill-item">PySpark</span>
+                <span class="skill-item">R</span>
+                <span class="skill-item">SQL</span>
+                <span class="skill-item">Git</span>
+                <span class="skill-item">Docker</span>
+              </div>
+            </div>
+
+            <div class="skill-category">
+              <h3>Cloud & Infrastructure</h3>
+              <div class="skill-list">
+                <span class="skill-item">AWS</span>
+                <span class="skill-item">Lambda</span>
+                <span class="skill-item">EC2</span>
+                <span class="skill-item">S3</span>
+                <span class="skill-item">Neo4j</span>
+                <span class="skill-item">Databricks</span>
+                <span class="skill-item">Streamlit</span>
+              </div>
+            </div>
+
+            <div class="skill-category">
+              <h3>Visualization</h3>
+              <div class="skill-list">
+                <span class="skill-item">Power BI</span>
+                <span class="skill-item">Tableau</span>
+                <span class="skill-item">QuickSight</span>
+                <span class="skill-item">Plotly</span>
+                <span class="skill-item">Dashboards</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="experience">
+        <div class="container">
+          <div class="section-header">
+            <h2>Professional Experience</h2>
+            <p>Where I've applied my skills to create impact</p>
+          </div>
+          <div class="card-grid">
+            <div class="card" data-modal="sensorup">
+              <div class="card-content">
+                <div class="card-icon">
+                  <i class="ri-line-chart-fill"></i>
+                </div>
+                <h3>Data Science Intern</h3>
+                <p>SensorUp • Oil & Gas Analytics</p>
+                <p style="margin-top: 1rem;">Built predictive monitoring system with ML for time-series forecasting and anomaly detection using SCADA data.</p>
+                <div class="card-tags">
+                  <span class="card-tag">Time-Series</span>
+                  <span class="card-tag">ML</span>
+                  <span class="card-tag">AI Agents</span>
+                </div>
+                <div class="card-meta">
+                  <span>2025</span>
+                  <span style="color: var(--primary); font-weight: 600;">Current</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" data-modal="ucalgary-research">
+              <div class="card-content">
+                <div class="card-icon">
+                  <i class="ri-microscope-fill"></i>
+                </div>
+                <h3>Graduate Research Intern</h3>
+                <p>UCalgary & Alberta Children's Hospital</p>
+                <p style="margin-top: 1rem;">Leveraged ML and statistics on multi-modal longitudinal data to build predictive models of child behavioral outcomes.</p>
+                <div class="card-tags">
+                  <span class="card-tag">Machine Learning</span>
+                  <span class="card-tag">R</span>
+                  <span class="card-tag">Statistics</span>
+                </div>
+                <div class="card-meta">
+                  <span>2025 - Present</span>
+                  <span style="color: var(--primary); font-weight: 600;">Research</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="container">
+        <div class="contact-section">
+          <h2>Let's Connect</h2>
+          <p>
+            I'm always open to discussing new projects, creative ideas, or opportunities to collaborate on innovative data solutions.
+          </p>
+          <div class="contact-buttons">
+            <a href="mailto:lalithpathapati@gmail.com" class="btn btn-primary">
+              <i class="ri-mail-send-line"></i> Email Me
+            </a>
+            <a href="https://www.linkedin.com/in/Lalith-N" target="_blank" class="btn btn-secondary">
+              <i class="ri-linkedin-box-fill"></i> LinkedIn
+            </a>
+            <a href="https://github.com/Lal1th" target="_blank" class="btn btn-secondary">
+              <i class="ri-github-fill"></i> GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="container">
+        <p>&copy; <span id="year"></span> Lalith Nandakumar. All rights reserved. • Calgary, AB, Canada</p>
+      </div>
+    </footer>
+
+    <!-- Modals -->
+    <div class="modal" id="modal-ucalgary">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>M.S. in Data Science</h3>
+          <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <h4>University of Calgary • GPA: 4.0/4.0</h4>
+          <p><strong>Duration:</strong> 2024 - 2025</p>
+          <p><strong>Focus:</strong> Advanced statistical modeling, cloud architecture, and machine learning applications.</p>
+          <h4>Key Coursework:</h4>
+          <ul>
+            <li>Power BI & Data Visualization</li>
+            <li>Statistical Modelling</li>
+            <li>Cloud Architecture</li>
+            <li>Database Management</li>
+            <li>Feature Development & Data Analysis</li>
+            <li>Machine Learning</li>
+          </ul>
+          <div class="card-tags" style="margin-top: 1.5rem;">
+            <span class="card-tag">Python</span>
+            <span class="card-tag">R</span>
+            <span class="card-tag">Power BI</span>
+            <span class="card-tag">AWS</span>
+            <span class="card-tag">SQL</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="modal-vit">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Diploma in Data Science</h3>
+          <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <h4>Vellore Institute of Technology • GPA: 4.0/4.0</h4>
+          <p><strong>Duration:</strong> 2023 - 2024</p>
+          <p><strong>Focus:</strong> Deep learning architectures, neural networks, and big data processing.</p>
+          <h4>Key Coursework:</h4>
+          <ul>
+            <li>Artificial Neural Networks (ANN)</li>
+            <li>Convolutional Neural Networks (CNN)</li>
+            <li>LSTM (Long Short-Term Memory)</li>
+            <li>Neural Networks</li>
+            <li>Spark & PySpark</li>
+          </ul>
+          <div class="card-tags" style="margin-top: 1.5rem;">
+            <span class="card-tag">Python</span>
+            <span class="card-tag">TensorFlow</span>
+            <span class="card-tag">Keras</span>
+            <span class="card-tag">PySpark</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="modal-aws-cert">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>AWS Certified Cloud Practitioner</h3>
+          <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <h4>Amazon Web Services</h4>
+          <p><strong>Certification:</strong> Cloud Practitioner</p>
+          <p><strong>Focus:</strong> Foundational understanding of AWS cloud concepts, services, security, and architecture.</p>
+          <h4>Core Competencies:</h4>
+          <ul>
+            <li>AWS Cloud concepts and architecture</li>
+            <li>Core AWS services (EC2, S3, RDS, VPC)</li>
+            <li>Security and compliance best practices</li>
+            <li>Billing and pricing models</li>
+            <li>Cloud deployment and operational best practices</li>
+          </ul>
+          <div class="card-tags" style="margin-top: 1.5rem;">
+            <span class="card-tag">EC2</span>
+            <span class="card-tag">S3</span>
+            <span class="card-tag">Lambda</span>
+            <span class="card-tag">IAM</span>
+            <span class="card-tag">RDS</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="modal-databricks-cert">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Databricks Certification</h3>
+          <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <h4>Databricks Lakehouse Platform</h4>
+          <p><strong>Focus:</strong> Data engineering, data science, and ML workflows using Spark on Databricks platform.</p>
+          <h4>Key Skills:</h4>
+          <ul>
+            <li>Databricks Lakehouse architecture</li>
+            <li>Data engineering with Spark SQL</li>
+            <li>Delta Lake for reliable data lakes</li>
+            <li>MLflow for ML lifecycle management</li>
+            <li>Scalable data processing and analytics</li>
+          </ul>
+          <div class="card-tags" style="margin-top: 1.5rem;">
+            <span class="card-tag">Databricks</span>
+            <span class="card-tag">Spark SQL</span>
+            <span class="card-tag">Delta Lake</span>
+            <span class="card-tag">MLflow</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="modal-gaming">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Gaming Analytics Dashboard</h3>
+          <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <h4>Live Interactive Dashboard</h4>
+          <p><strong>Project:</strong> Real-time gaming industry analytics and visualization platform.</p>
+          <h4>Features:</h4>
+          <ul>
+            <li>Live data visualization of gaming industry trends</li>
+            <li>Player statistics and performance metrics</li>
+            <li>Market insights and analysis</li>
+            <li>Interactive charts and dynamic filtering</li>
+            <li>Real-time data updates and processing</li>
+            <li>Responsive design for all devices</li>
+          </ul>
+          <div class="card-tags" style="margin-top: 1.5rem;">
+            <span class="card-tag">Streamlit</span>
+            <span class="card-tag">Python</span>
+            <span class="card-tag">Pandas</span>
+            <span class="card-tag">Plotly</span>
+            <span class="card-tag">Data Visualization</span>
+          </div>
+          <div style="margin-top: 1.5rem;">
+            <a href="https://lalithn.streamlit.app/" target="_blank" class="btn btn-primary">
+              <i class="ri-external-link-line"></i> View Live Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="modal-keyera">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>AWSxKeyera Data Analytics Hackathon</h3>
+          <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <h4>3rd Place Winner</h4>
+          <p><strong>Challenge:</strong> Develop a comprehensive BI dashboard from scratch within competition timeframe.</p>
+          <h4>Key Achievements:</h4>
+          <ul>
+            <li>Secured 3rd place in competitive data analytics case competition</li>
+            <li>Collaborated with four-member team to design and build end-to-end BI solution</li>
+            <li>Presented insights to Keyera and AWS partners</li>
+            <li>Identified optimization strategies for operational efficiency</li>
+            <li>Delivered actionable recommendations backed by data analysis</li>
+          </ul>
+          <div class="card-tags" style="margin-top: 1.5rem;">
+            <span class="card-tag">AWS QuickSight</span>
+            <span class="card-tag">Business Intelligence</span>
+            <span class="card-tag">Data Visualization</span>
+            <span class="card-tag">Team Collaboration</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="modal-urban">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Urban System Hackathon</h3>
+          <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <h4>Graph-Based ML Solution</h4>
+          <p><strong>Project:</strong> Employee-project relationship analysis using graph database and machine learning.</p>
+          <h4>Key Achievements:</h4>
+          <ul>
+            <li>Developed graph-based ML models using Neo4j for relational data analysis</li>
+            <li>Identified patterns in workforce productivity and project success metrics</li>
+            <li>Implemented predictive analytics pipeline for termination risk classification</li>
+            <li>Optimized staffing recommendations using graph algorithms</li>
+            <li>Delivered actionable insights for HR decision-making</li>
+          </ul>
+          <div class="card-tags" style="margin-top: 1.5rem;">
+            <span class="card-tag">Neo4j</span>
+            <span class="card-tag">Graph Data Science</span>
+            <span class="card-tag">Python</span>
+            <span class="card-tag">Pandas</span>
+            <span class="card-tag">scikit-learn</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="modal-electricity">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Electricity Forecasting Pipeline</h3>
+          <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <h4>Cloud-Native Data Pipeline</h4>
+          <p><strong>Architecture:</strong> EIA API → AWS Lambda → S3 → EC2 → Streamlit</p>
+          <h4>Project Overview:</h4>
+          <ul>
+            <li>Designed cloud-native data pipeline with CI/CD automation</li>
+            <li>Automated data ingestion from EIA API using AWS Lambda</li>
+            <li>Implemented scalable storage solution with Amazon S3</li>
+            <li>Built time-series forecasting models for electricity demand</li>
+            <li>Created interactive Streamlit dashboard for visualization</li>
+            <li>Deployed on EC2 with continuous integration workflow</li>
+          </ul>
+          <div class="card-tags" style="margin-top: 1.5rem;">
+            <span class="card-tag">AWS Lambda</span>
+            <span class="card-tag">Amazon S3</span>
+            <span class="card-tag">EC2</span>
+            <span class="card-tag">Streamlit</span>
+            <span class="card-tag">CI/CD</span>
+            <span class="card-tag">Time-Series</span>
+          </div>
+          <div style="margin-top: 1.5rem;">
+            <a href="https://github.com/Lal1th" target="_blank" class="btn btn-primary">
+              <i class="ri-github-fill"></i> View on GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="modal-sensorup">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>SensorUp - Data Science Intern</h3>
+          <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <h4>Oil & Gas Analytics</h4>
+          <p><strong>Duration:</strong> 2025</p>
+          <h4>Key Responsibilities & Achievements:</h4>
+          <ul>
+            <li>Uncovered critical predictive relationships between SCADA data and emission events</li>
+            <li>Built predictive monitoring system with ML for time-series forecasting</li>
+            <li>Implemented anomaly detection algorithms for early warning systems</li>
+            <li>Accelerated data analysis by building intelligent dashboard with AI Agents</li>
+            <li>Leveraged advanced agents for generative AI reporting and image classification</li>
+            <li>Reduced analysis time by 40% through automation</li>
+          </ul>
+          <div class="card-tags" style="margin-top: 1.5rem;">
+            <span class="card-tag">Time-Series Analysis</span>
+            <span class="card-tag">Machine Learning</span>
+            <span class="card-tag">AI Agents</span>
+            <span class="card-tag">GenAI</span>
+            <span class="card-tag">Dashboards</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="modal-ucalgary-research">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Graduate Research Intern</h3>
+          <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <h4>UCalgary & Alberta Children's Hospital</h4>
+          <p><strong>Duration:</strong> 2025 - Present</p>
+          <h4>Research Focus:</h4>
+          <ul>
+            <li>Leveraged machine learning on multi-modal longitudinal data</li>
+            <li>Applied advanced statistical analyses for behavioral outcome prediction</li>
+            <li>Developed predictive models of child behavioral outcomes</li>
+            <li>Visualized impact of early-life factors on development</li>
+            <li>Collaborated with clinical researchers and healthcare professionals</li>
+            <li>Published findings for peer review</li>
+          </ul>
+          <div class="card-tags" style="margin-top: 1.5rem;">
+            <span class="card-tag">R</span>
+            <span class="card-tag">Minitab</span>
+            <span class="card-tag">Machine Learning</span>
+            <span class="card-tag">Statistics</span>
+            <span class="card-tag">Clinical Research</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Year
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Mobile menu toggle
+      const menuToggle = document.getElementById('menuToggle');
+      const navLinks = document.getElementById('navLinks');
+
+      menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        navLinks.classList.toggle('active');
+      });
+
+      // Close mobile menu when clicking links
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          menuToggle.classList.remove('active');
+          navLinks.classList.remove('active');
+        });
+      });
+
+      // Scroll progress bar
+      window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById('scrollProgress').style.width = scrolled + '%';
+      });
+
+      // Intersection Observer for sections
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('section').forEach(section => {
+        observer.observe(section);
+      });
+
+      // Modal functionality
+      const modals = document.querySelectorAll('.modal');
+      const cards = document.querySelectorAll('[data-modal]');
+
+      cards.forEach(card => {
+        card.addEventListener('click', () => {
+          const modalId = 'modal-' + card.getAttribute('data-modal');
+          const modal = document.getElementById(modalId);
+          if (modal) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+          }
+        });
+      });
+
+      modals.forEach(modal => {
+        const closeBtn = modal.querySelector('.modal-close');
+        
+        closeBtn.addEventListener('click', () => {
+          modal.classList.remove('active');
+          document.body.style.overflow = '';
+        });
+
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+          }
+        });
+      });
+
+      // Close modal with Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          modals.forEach(modal => {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+          });
+        }
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            const offset = 80;
+            const targetPosition = target.offsetTop - offset;
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
