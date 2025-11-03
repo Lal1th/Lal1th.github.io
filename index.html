@@ -83,6 +83,94 @@
         --chip: #1f2430;
         --ring: #30363d;
       }
+
+      /* Light Theme */
+      [data-theme="light"] {
+        --bg: #ffffff;
+        --bg-2: #f6f8fa;
+        --text: #24292f;
+        --muted: #57606a;
+        --accent: #0969da;
+        --ai: #0969da;
+        --card: #f6f8fa;
+        --chip: #e7ecf0;
+        --ring: #d0d7de;
+      }
+
+      [data-theme="light"] body {
+        background: radial-gradient(
+            1200px 800px at 20% -10%,
+            #e3f2fd 0%,
+            rgba(227, 242, 253, 0) 60%
+          ),
+          radial-gradient(
+            900px 600px at 90% 10%,
+            #f3e5f5 0%,
+            rgba(243, 229, 245, 0) 50%
+          ),
+          var(--bg);
+      }
+
+      [data-theme="light"] .particle {
+        background: var(--accent);
+        opacity: 0.2;
+      }
+
+      [data-theme="light"] .hero .bg-layer {
+        opacity: 0.05;
+      }
+
+      [data-theme="light"] .badge {
+        background: linear-gradient(180deg, #e7ecf0, #d0d7de);
+        color: #24292f;
+      }
+
+      /* Theme Toggle Button */
+      .theme-toggle {
+        position: fixed;
+        top: 80px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: var(--card);
+        border: 1px solid var(--ring);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 100;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .theme-toggle:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .theme-toggle i {
+        font-size: 1.5rem;
+        color: var(--text);
+        transition: transform 0.3s ease;
+      }
+
+      .theme-toggle:hover i {
+        transform: rotate(20deg);
+      }
+
+      @media (max-width: 768px) {
+        .theme-toggle {
+          top: 70px;
+          right: 15px;
+          width: 45px;
+          height: 45px;
+        }
+        
+        .theme-toggle i {
+          font-size: 1.3rem;
+        }
+      }
       * {
         box-sizing: border-box;
       }
@@ -619,11 +707,21 @@
       }
       .modal .sheet {
         width: min(920px, 92vw);
+        max-height: 90vh;
         background: linear-gradient(180deg, #14151b, #0f1117);
         border: 1px solid #2a2f3b;
         border-radius: 18px;
-        overflow: hidden;
+        overflow-y: auto;
         box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+      }
+
+      /* Resume Preview Modal */
+      .resume-preview {
+        width: 100%;
+        height: 80vh;
+        border: none;
+        border-radius: 8px;
+        background: white;
       }
 
       @media (max-width: 1024px) {
@@ -877,13 +975,35 @@
       .poster img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain;
         display: block;
         filter: saturate(1.05);
         transition: transform 0.6s ease;
+        padding: 10px;
+        background: #0f1117;
       }
 
+      /* Special styling for Keyera image to allow zoom */
+      .card[data-modal-target="modal-keyera"] .poster img {
+        object-fit: cover;
+        padding: 0;
+      }
+
+      /* --- FIX: White background for transparent images --- */
+      .card[data-modal-target="modal-sensorup"] .poster img,
+      .card[data-modal-target="modal-ucalgary-research"] .poster img,
+      .modal#modal-sensorup .cover img,
+      .modal#modal-ucalgary-research .cover img {
+        background-color: #ffffff;
+      }
+      /* --- End Fix --- */
+
+
       .card:hover .poster img {
+        transform: scale(1.05);
+      }
+
+      .card[data-modal-target="modal-keyera"]:hover .poster img {
         transform: scale(1.1);
       }
 
@@ -1202,6 +1322,11 @@
     </style>
   </head>
   <body>
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <i class="ri-sun-line"></i>
+    </button>
+
     <!-- Animated Background Particles -->
     <div class="particles" id="particles"></div>
 
@@ -1223,10 +1348,10 @@
         
         <nav aria-label="Primary">
           <ul>
-            <li><a href="#education" title="Education">Education & Certs</a></li>
-            <li><a href="#projects" title="Projects">Projects & Hackathons</a></li>
-            <li><a href="#skills" title="Skills">Skills</a></li>
             <li><a href="#experience" title="Work Experience">Experience</a></li>
+            <li><a href="#education" title="Education">Education</a></li>
+            <li><a href="#projects" title="Projects">Projects</a></li>
+            <li><a href="#skills" title="Skills">Skills</a></li>
           </ul>
         </nav>
         
@@ -1234,25 +1359,25 @@
           <a class="btn ghost" href="mailto:lalithpathapati@gmail.com" target="_blank">
             <i class="ri-send-plane-line"></i> Contact
           </a>
-          <a class="btn primary" href="mailto:lalithpathapati@gmail.com?subject=Request%20for%20Resume" target="_blank">
+          <button class="btn primary" onclick="openResumeModal(); return false;">
             <i class="ri-download-2-line"></i> Resume
-          </a>
+          </button>
         </div>
 
         <nav id="main-nav" aria-label="Mobile menu">
           <ul>
-            <li><a href="#education">Education & Certs</a></li>
-            <li><a href="#projects">Projects & Hackathons</a></li>
-            <li><a href="#skills">Skills</a></li>
             <li><a href="#experience">Experience</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#skills">Skills</a></li>
           </ul>
           <div class="cta">
             <a class="btn ghost" href="mailto:lalithpathapati@gmail.com" target="_blank">
               <i class="ri-send-plane-line"></i> Contact
             </a>
-            <a class="btn primary" href="mailto:lalithpathapati@gmail.com?subject=Request%20for%20Resume" target="_blank">
+            <button class="btn primary" onclick="openResumeModal(); return false;">
               <i class="ri-download-2-line"></i> Resume
-            </a>
+            </button>
           </div>
         </nav>
       </div>
@@ -1273,11 +1398,11 @@
             Data Scientist with experience in predictive analytics, cloud-native data pipelines, and AI automation. I build dashboards, pipelines, and models that move metrics.
           </p>
           <div class="hero-actions">
-           <a class="btn primary" href="#projects">
-              <i class="ri-lightbulb-flash-line"></i> View Projects
+           <a class="btn primary" href="#experience">
+              <i class="ri-briefcase-line"></i> View Experience
             </a>
-            <a class="btn" href="#experience">
-              <i class="ri-rocket-2-line"></i> See Experience
+            <a class="btn" href="#projects">
+              <i class="ri-lightbulb-flash-line"></i> See Projects
             </a>
           </div>
             <div class="social-links">
@@ -1309,6 +1434,79 @@
       <br>
     </div>
     <main class="container">
+      <!-- Experience Section -->
+      <section id="experience" aria-label="Work Experience" class="reveal">
+        <div class="row-header">
+          <h2 class="row-title">Work Experience</h2>
+          <div class="scroller">
+            <button class="scroll-btn" data-scroll="dep">
+              <i class="ri-arrow-left-s-line"></i>
+            </button>
+            <button class="scroll-btn" data-scroll="dep" data-dir="right">
+              <i class="ri-arrow-right-s-line"></i>
+            </button>
+          </div>
+        </div>
+        <div style="margin-bottom: 8px;"></div>
+        <p style="color: #c0c6d3">
+          Real-world impact through data science: a selection of my professional
+          experience where I've driven measurable outcomes using data-driven strategies.
+        </p>
+        
+        <div class="carousel" id="carousel-dep">
+          <article class="card" data-modal-target="modal-sensorup">
+            <div class="poster">
+              <img
+                src="https://github.com/Lal1th/Portfolio/blob/main/Sensor_Up_RGB.png?raw=true"
+                alt="SensorUp"
+              />
+              <div class="gradient"></div>
+              <div class="meta">
+                <div class="chips">
+                  <span class="chip">Data Science Intern</span
+                  ><span class="chip">Oil & Gas</span>
+                </div>
+                <div class="metric">2025</div>
+              </div>
+            </div>
+            <div class="content">
+              <div class="name">SensorUp • Data Science Intern</div>
+              <div class="desc">
+                Built predictive monitoring system with ML for time-series.
+              </div>
+              <div class="action">
+                <i class="ri-information-line"></i> Details
+              </div>
+            </div>
+          </article>
+          <article class="card" data-modal-target="modal-ucalgary-research">
+            <div class="poster">
+              <img
+                src="https://github.com/Lal1th/Portfolio/blob/main/achri.png?raw=true"
+                alt="UCalgary Research"
+              />
+              <div class="gradient"></div>
+              <div class="meta">
+                <div class="chips">
+                  <span class="chip">Graduate Research Intern</span>
+                </div>
+                <div class="metric">2025-Present</div>
+              </div>
+            </div>
+            <div class="content">
+              <div class="name">UCalgary & Alberta Children's Hospital</div>
+              <div class="desc">
+                Leveraged ML and stats to build predictive models of child behavioral outcomes.
+              </div>
+              <div class="action">
+                <i class="ri-information-line"></i> Details
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Education Section -->
       <section id="education" aria-label="Education & Certifications" class="reveal">
         <div class="row-header">
           <h2 class="row-title">Education & Certifications</h2>
@@ -1331,7 +1529,7 @@
           <article class="card" data-modal-target="modal-ucalgary">
             <div class="poster">
               <img
-                src="https://placehold.co/600x338/182141/58a6ff?text=University%20of%20Calgary"
+                src="https://github.com/Lal1th/Portfolio/blob/main/uoc.jpg?raw=true"
                 alt="University of Calgary"
               />
               <div class="gradient"></div>
@@ -1431,6 +1629,7 @@
         </div>
       </section> 
 
+      <!-- Projects Section -->
       <section id="projects" aria-label="Projects & Hackathons" class="reveal">
         <div class="row-header">
           <h2 class="row-title">Projects & Hackathons</h2>
@@ -1472,6 +1671,32 @@
               </div>
               <div class="action">
                 <i class="ri-play-mini-fill"></i> Case Study
+              </div>
+            </div>
+          </article>
+
+          <article class="card" data-modal-target="modal-gaming">
+            <div class="poster">
+              <img
+                src="https://placehold.co/600x338/182141/58a6ff?text=Gaming%20Analytics"
+                alt="Gaming Analytics Dashboard"
+              />
+              <div class="gradient"></div>
+              <div class="meta">
+                <div class="chips">
+                  <span class="chip">Streamlit</span>
+                  <span class="chip">Python</span>
+                </div>
+                <div class="metric">Live</div>
+              </div>
+            </div>
+            <div class="content">
+              <div class="name">Gaming Analytics Dashboard</div>
+              <div class="desc">
+                Live interactive dashboard analyzing gaming trends and player statistics.
+              </div>
+              <div class="action">
+                <i class="ri-play-mini-fill"></i> View Live
               </div>
             </div>
           </article>
@@ -1532,6 +1757,7 @@
         </div>
       </section>
 
+      <!-- Skills Section -->
       <section id="skills" aria-label="Skills" class="reveal">
         <div class="row-header">
           <h2 class="row-title">Skills</h2>
@@ -1585,77 +1811,7 @@
         </div>
       </section>
 
-      <section id="experience" aria-label="Work Experience" class="reveal">
-        <div class="row-header">
-          <h2 class="row-title">Work Experience</h2>
-          <div class="scroller">
-            <button class="scroll-btn" data-scroll="dep">
-              <i class="ri-arrow-left-s-line"></i>
-            </button>
-            <button class="scroll-btn" data-scroll="dep" data-dir="right">
-              <i class="ri-arrow-right-s-line"></i>
-            </button>
-          </div>
-        </div>
-        <div style="margin-bottom: 8px;"></div>
-        <p style="color: #c0c6d3">
-          Real-world impact through data science: a selection of my professional
-          experience where I've driven measurable outcomes using data-driven strategies.
-        </p>
-        
-        <div class="carousel" id="carousel-dep">
-          <article class="card" data-modal-target="modal-sensorup">
-            <div class="poster">
-              <img
-                src="https://placehold.co/600x338/182141/58a6ff?text=SensorUp"
-                alt="SensorUp"
-              />
-              <div class="gradient"></div>
-              <div class="meta">
-                <div class="chips">
-                  <span class="chip">Data Science Intern</span
-                  ><span class="chip">Oil & Gas</span>
-                </div>
-                <div class="metric">2025</div>
-              </div>
-            </div>
-            <div class="content">
-              <div class="name">SensorUp • Data Science Intern</div>
-              <div class="desc">
-                Built predictive monitoring system with ML for time-series.
-              </div>
-              <div class="action">
-                <i class="ri-information-line"></i> Details
-              </div>
-            </div>
-          </article>
-          <article class="card" data-modal-target="modal-ucalgary-research">
-            <div class="poster">
-              <img
-                src="https://placehold.co/600x338/182141/58a6ff?text=UCalgary%20Research"
-                alt="UCalgary Research"
-              />
-              <div class="gradient"></div>
-              <div class="meta">
-                <div class="chips">
-                  <span class="chip">Graduate Research Intern</span>
-                </div>
-                <div class="metric">2025-Present</div>
-              </div>
-            </div>
-            <div class="content">
-              <div class="name">UCalgary & Alberta Children's Hospital</div>
-              <div class="desc">
-                Leveraged ML and stats to build predictive models of child behavioral outcomes.
-              </div>
-              <div class="action">
-                <i class="ri-information-line"></i> Details
-              </div>
-            </div>
-          </article>
-        </div>
-      </section>
-
+      <!-- Contact Section -->
       <section id="contact" style="text-align: center; margin-top: 64px; background: var(--card); padding: 2rem; border-radius: 16px; border: 1px solid var(--ring);" class="reveal">
         <div class="row-header" style="justify-content: center;"><h2 class="row-title">Get In Touch</h2></div>
         <p style="color: #c0c6d3; max-width: 500px; margin: 1rem auto;">
@@ -1682,22 +1838,42 @@
       </div>
     </footer>
 
-    <!-- UCalgary Education -->
-    <div
-      class="modal"
-      id="modal-ucalgary"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="ucalgary-title"
-    >
+    <!-- Resume Preview Modal -->
+    <div class="modal" id="modal-resume" role="dialog" aria-modal="true">
+      <div class="sheet" style="max-height: 95vh;">
+        <div class="body">
+          <div class="topline">
+            <h3>Resume Preview</h3>
+            <button class="btn" data-close>Close</button>
+          </div>
+          <div style="margin-top: 1rem;">
+            <!-- --- FIX: Use Google Docs viewer to embed PDF preview --- -->
+            <iframe 
+              src="https://docs.google.com/gview?url=https://github.com/Lal1th/Portfolio/raw/main/LALITH_CV.pdf&embedded=true" 
+              class="resume-preview"
+              title="Resume Preview"
+            ></iframe>
+            <!-- --- End Fix --- -->
+          </div>
+          <div class="btns" style="justify-content: center;">
+            <a class="btn primary" href="https://github.com/Lal1th/Portfolio/raw/main/LALITH_CV.pdf" download="Lalith_Nandakumar_Resume.pdf">
+              <i class="ri-download-2-line"></i> Download Resume
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- All Modals -->
+    <div class="modal" id="modal-ucalgary" role="dialog" aria-modal="true">
       <div class="sheet">
         <div class="cover">
-          <img src="https://placehold.co/1600x600/182141/58a6ff?text=University%20of%20Calgary" alt="UCalgary" />
+          <img src="https://github.com/Lal1th/Portfolio/blob/main/uoc.jpg?raw=true" alt="UCalgary" />
           <div class="fade"></div>
         </div>
         <div class="body">
           <div class="topline">
-            <h3 id="ucalgary-title">M.S. in Data Science (2024–2025)</h3>
+            <h3>M.S. in Data Science (2024–2025)</h3>
             <button class="btn" data-close>Close</button>
           </div>
           <div class="two">
@@ -1726,13 +1902,7 @@
       </div>
     </div>
     
-    <div
-      class="modal"
-      id="modal-vit-diploma"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="vit-title"
-    >
+    <div class="modal" id="modal-vit-diploma" role="dialog" aria-modal="true">
       <div class="sheet">
         <div class="cover">
           <img src="https://placehold.co/1600x600/182141/58a6ff?text=Vellore%20Institute%20of%20Technology" alt="VIT" />
@@ -1740,7 +1910,7 @@
         </div>
         <div class="body">
           <div class="topline">
-            <h3 id="vit-title">Diploma in Data Science (2023–2024)</h3>
+            <h3>Diploma in Data Science (2023–2024)</h3>
             <button class="btn" data-close>Close</button>
           </div>
           <div class="two">
@@ -1767,13 +1937,7 @@
       </div>
     </div>
     
-    <div
-      class="modal"
-      id="modal-aws"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="aws-title"
-    >
+    <div class="modal" id="modal-aws" role="dialog" aria-modal="true">
       <div class="sheet">
         <div class="cover">
           <img src="https://placehold.co/1600x600/182141/58a6ff?text=AWS%20Certified" alt="AWS" />
@@ -1781,7 +1945,7 @@
         </div>
         <div class="body">
           <div class="topline">
-            <h3 id="aws-title">AWS Certified Cloud Practitioner</h3>
+            <h3>AWS Certified Cloud Practitioner</h3>
             <button class="btn" data-close>Close</button>
           </div>
           <div class="two">
@@ -1805,13 +1969,7 @@
       </div>
     </div>
     
-    <div
-      class="modal"
-      id="modal-databricks"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="databricks-title"
-    >
+    <div class="modal" id="modal-databricks" role="dialog" aria-modal="true">
       <div class="sheet">
         <div class="cover">
           <img src="https://placehold.co/1600x600/182141/58a6ff?text=Databricks" alt="Databricks" />
@@ -1819,7 +1977,7 @@
         </div>
         <div class="body">
           <div class="topline">
-            <h3 id="databricks-title">Databricks Certification</h3>
+            <h3>Databricks Certification</h3>
             <button class="btn" data-close>Close</button>
           </div>
           <div class="two">
@@ -1842,13 +2000,49 @@
       </div>
     </div>
     
-    <div
-      class="modal"
-      id="modal-keyera"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="keyera-title"
-    >
+    <div class="modal" id="modal-gaming" role="dialog" aria-modal="true">
+      <div class="sheet">
+        <div class="cover">
+          <img src="https://placehold.co/1600x600/182141/58a6ff?text=Gaming%20Analytics%20Dashboard" alt="Gaming Analytics" />
+          <div class="fade"></div>
+        </div>
+        <div class="body">
+          <div class="topline">
+            <h3>Gaming Analytics Dashboard</h3>
+            <button class="btn" data-close>Close</button>
+          </div>
+          <div class="two">
+            <div class="section">
+              <h5>Live Interactive Dashboard</h5>
+              <p>Real-time gaming industry analytics and visualization platform featuring:</p>
+              <ul>
+                <li>Live data visualization of gaming industry trends</li>
+                <li>Player statistics and performance metrics</li>
+                <li>Market insights and competitive analysis</li>
+                <li>Interactive charts with dynamic filtering</li>
+                <li>Real-time data updates and processing</li>
+                <li>Responsive design for all devices</li>
+              </ul>
+            </div>
+            <div class="section">
+              <h5>Stack</h5>
+              <div class="skillchips">
+                <span class="chip">Streamlit</span><span class="chip">Python</span
+                ><span class="chip">Pandas</span><span class="chip">Plotly</span
+                ><span class="chip">Data Visualization</span>
+              </div>
+              <div class="btns">
+                <a class="btn primary" href="https://lalithn.streamlit.app/" target="_blank">
+                  <i class="ri-external-link-line"></i> View Live Dashboard
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="modal" id="modal-keyera" role="dialog" aria-modal="true">
       <div class="sheet">
         <div class="cover">
           <img src="https://github.com/Lal1th/Portfolio/blob/main/Hac_img.jpg?raw=true" alt="Keyera Hackathon" />
@@ -1856,7 +2050,7 @@
         </div>
         <div class="body">
           <div class="topline">
-            <h3 id="keyera-title">AWSxKeyera Hackathon (3rd Place)</h3>
+            <h3>AWSxKeyera Hackathon (3rd Place)</h3>
             <button class="btn" data-close>Close</button>
           </div>
           <div class="two">
@@ -1880,13 +2074,7 @@
       </div>
     </div>
     
-    <div
-      class="modal"
-      id="modal-urban"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="urban-title"
-    >
+    <div class="modal" id="modal-urban" role="dialog" aria-modal="true">
       <div class="sheet">
         <div class="cover">
           <img src="https://placehold.co/1600x600/182141/58a6ff?text=Urban%20System%20Hackathon" alt="Urban Hackathon" />
@@ -1894,7 +2082,7 @@
         </div>
         <div class="body">
           <div class="topline">
-            <h3 id="urban-title">Urban System Hackathon</h3>
+            <h3>Urban System Hackathon</h3>
             <button class="btn" data-close>Close</button>
           </div>
           <div class="two">
@@ -1919,13 +2107,7 @@
       </div>
     </div>
     
-    <div
-      class="modal"
-      id="modal-electricity"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="electricity-title"
-    >
+    <div class="modal" id="modal-electricity" role="dialog" aria-modal="true">
       <div class="sheet">
         <div class="cover">
           <img src="https://placehold.co/1600x600/182141/58a6ff?text=Electricity%20Forecasting" alt="Electricity Project" />
@@ -1933,7 +2115,7 @@
         </div>
         <div class="body">
           <div class="topline">
-            <h3 id="electricity-title">Electricity Forecasting Pipeline</h3>
+            <h3>Electricity Forecasting Pipeline</h3>
             <button class="btn" data-close>Close</button>
           </div>
           <div class="two">
@@ -1963,21 +2145,15 @@
       </div>
     </div>
     
-    <div
-      class="modal"
-      id="modal-sensorup"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="sensorup-title"
-    >
+    <div class="modal" id="modal-sensorup" role="dialog" aria-modal="true">
       <div class="sheet">
         <div class="cover">
-          <img src="https://placehold.co/1600x600/182141/58a6ff?text=SensorUp" alt="SensorUp" />
+          <img src="https://github.com/Lal1th/Portfolio/blob/main/Sensor_Up_RGB.png?raw=true" alt="SensorUp" />
           <div class="fade"></div>
         </div>
         <div class="body">
           <div class="topline">
-            <h3 id="sensorup-title">SensorUp – Data Science Intern</h3>
+            <h3>SensorUp – Data Science Intern</h3>
             <button class="btn" data-close>Close</button>
           </div>
           <div class="two">
@@ -2003,21 +2179,15 @@
       </div>
     </div>
     
-    <div
-      class="modal"
-      id="modal-ucalgary-research"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="ucalgary-research-title"
-    >
+    <div class="modal" id="modal-ucalgary-research" role="dialog" aria-modal="true">
       <div class="sheet">
         <div class="cover">
-          <img src="https://placehold.co/1600x600/182141/58a6ff?text=UCalgary%20Research" alt="UCalgary Research" />
+          <img src="https://github.com/Lal1th/Portfolio/blob/main/achri.png?raw=true" alt="UCalgary Research" />
           <div class="fade"></div>
         </div>
         <div class="body">
           <div class="topline">
-            <h3 id="ucalgary-research-title">UCalgary & Alberta Children's Hospital – Graduate Research Intern</h3>
+            <h3>UCalgary & Alberta Children's Hospital – Graduate Research Intern</h3>
             <button class="btn" data-close>Close</button>
           </div>
           <div class="two">
@@ -2042,6 +2212,33 @@
     </div>
 
     <script>
+      // Theme Toggle Functionality
+      const themeToggle = document.getElementById('themeToggle');
+      const themeIcon = themeToggle.querySelector('i');
+      const html = document.documentElement;
+
+      // Set initial theme to light
+      html.setAttribute('data-theme', 'light');
+      themeIcon.className = 'ri-moon-line';
+
+      // Load saved theme preference
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        html.setAttribute('data-theme', savedTheme);
+        themeIcon.className = savedTheme === 'light' ? 'ri-moon-line' : 'ri-sun-line';
+      }
+
+      themeToggle.addEventListener('click', () => {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        
+        // Update icon
+        themeIcon.className = newTheme === 'light' ? 'ri-moon-line' : 'ri-sun-line';
+      });
+
       // Create animated background particles
       function createParticles() {
         const particles = document.getElementById('particles');
@@ -2072,7 +2269,7 @@
       }
 
       window.addEventListener('scroll', revealOnScroll);
-      revealOnScroll(); // Initial check
+      revealOnScroll();
 
       // Mobile Menu
       const hamburger = document.querySelector('.hamburger');
@@ -2169,6 +2366,11 @@
         
         document.addEventListener("keydown", esc);
       };
+
+      // Resume modal function
+      function openResumeModal() {
+        openModal('modal-resume');
+      }
 
       document.querySelectorAll("[data-modal-target]").forEach((card) => {
         card.addEventListener("click", (e) => {
