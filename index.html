@@ -166,6 +166,46 @@
       }
       /* --- End Fix --- */
 
+      /* --- Light Theme Text Fixes --- */
+      [data-theme="light"] .subtitle,
+      [data-theme="light"] .content .desc,
+      [data-theme="light"] .section-subtitle,
+      [data-theme="light"] footer {
+        color: var(--muted);
+      }
+
+      [data-theme="light"] .social-links a {
+        color: var(--text);
+        background: rgba(0, 0, 0, 0.05);
+      }
+      
+      [data-theme="light"] .card .action {
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.55);
+      }
+
+      [data-theme="light"] .modal .sheet {
+        background: var(--bg-2);
+        border-color: var(--ring);
+      }
+
+      [data-theme="light"] .sheet h3,
+      [data-theme="light"] .sheet .body,
+      [data-theme="light"] .sheet .section h5 {
+        color: var(--text);
+      }
+
+      [data-theme="light"] .kbd {
+        background: var(--chip);
+        border-color: var(--ring);
+      }
+
+      [data-theme="light"] .chip {
+        color: var(--text);
+        border-color: var(--ring);
+      }
+      /* --- End Fix --- */
+
 
       /* Theme Toggle Button */
       .theme-toggle {
@@ -1261,19 +1301,8 @@
         animation: modalSlideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       }
 
-      @keyframes modalSlideUp {
-        from {
-          transform: translateY(100px) scale(0.9);
-          opacity: 0;
-        }
-        to {
-          transform: translateY(0) scale(1);
-          opacity: 1;
-        }
-      }
-
       .sheet .cover {
-        aspect-ratio: 16/6;
+        aspect-ratio: 16/5; /* --- FIX: Was 16/6, made wider to be shorter --- */
         background: #0f1117;
         position: relative;
         overflow: hidden;
@@ -1587,7 +1616,7 @@
           </div>
         </div>
         <div style="margin-bottom: 8px;"></div>
-          <p style="color: #c0c6d3">
+          <p class="section-subtitle">
             The foundation of my expertise: a blend of formal education, certifications, and hands-on learning.
           </p>
         
@@ -1710,7 +1739,7 @@
           
         </div>
         <div style="margin-bottom: 8px;"></div>
-        <p style="color: #c0c6d3">
+        <p class="section-subtitle">
           Where models meet the real world: a curated set of projects where I engineered and deployed data and AI solutions to solve actual problems.
         </p>
         
@@ -1829,7 +1858,7 @@
           <h2 class="row-title">Skills</h2>
         </div>
         <div style="margin-bottom: 8px;"></div>
-            <p style="color: #c0c6d3">
+            <p class="section-subtitle">
                 My toolbox for building, deploying, and scaling data/AI solutions: LLMs, cloud, dashboards, pipelines, and more.
             </p>
         
@@ -1880,7 +1909,7 @@
       <!-- Contact Section -->
       <section id="contact" style="text-align: center; margin-top: 64px; background: var(--card); padding: 2rem; border-radius: 16px; border: 1px solid var(--ring);" class="reveal">
         <div class="row-header" style="justify-content: center;"><h2 class="row-title">Get In Touch</h2></div>
-        <p style="color: #c0c6d3; max-width: 500px; margin: 1rem auto;">
+        <p class="section-subtitle" style="max-width: 500px; margin: 1rem auto;">
           I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
         </p>
         <div class="links" style="justify-content: center; margin-top: 1.5rem;">
@@ -1913,15 +1942,12 @@
             <button class="btn" data-close>Close</button>
           </div>
           <div style="margin-top: 1rem;">
-            <!-- --- FIX: Use <object> for PDF preview --- -->
-            <object
-              data="https://github.com/Lal1th/Portfolio/raw/main/LALITH_CV.pdf"
-              type="application/pdf"
+            <!-- --- FIX: Use Google Docs Viewer for compatibility --- -->
+            <iframe
+              src="httpsGallery://docs.google.com/gview?url=https://github.com/Lal1th/Portfolio/raw/main/LALITH_CV.pdf&embedded=true"
               class="resume-preview"
-              aria-label="Resume Preview"
-            >
-              <p>Your browser does not support PDF previews. Please <a href="https://github.com/Lal1th/Portfolio/raw/main/LALITH_CV.pdf" download="Lalith_Nandakumar_Resume.pdf">download the resume</a> to view it.</p>
-            </object>
+              title="Resume Preview"
+            ></iframe>
             <!-- --- End Fix --- -->
           </div>
           <div class="btns" style="justify-content: center;">
@@ -2453,4 +2479,6 @@
     </script>
   </body>
 </html>
+
+
 
