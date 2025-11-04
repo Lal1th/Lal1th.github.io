@@ -803,20 +803,11 @@
         height: 100%; /* Changed from 80vh to 100% for flex */
         border: none;
         border-radius: 8px;
-        background: white;
+        /* background: white; <-- REMOVED this line */
       }
 
       /* --- Resume Fallback Styling --- */
-      .resume-preview p {
-        color: var(--text);
-        text-align: center;
-        padding: 2rem;
-      }
-      .resume-preview p a {
-        margin-top: 1rem;
-        display: inline-flex; /* Use inline-flex to match btn class */
-        text-decoration: none; /* Links inside p might get underlined */
-      }
+      /* --- REMOVED: Fallback styling for <object> tag --- */
       /* --- End Fallback Styling --- */
 
 
@@ -1983,22 +1974,23 @@
             <button class="btn" data-close>Close</button>
           </div>
           <!-- This is the container for the preview -->
-          <div>
-            <!-- --- FIX: Use <object> tag as a simple preview fallback --- -->
-            <object
-              data="https://github.com/Lal1th/Portfolio/raw/main/LALITH_CV.pdf"
-              type="application/pdf"
+          <div style="flex: 1; min-height: 0; margin-top: 1rem; border-radius: 8px; overflow: hidden; background: var(--bg);">
+            <!-- --- FIX: Re-instating Google Docs Viewer with correct URL --- -->
+            <iframe
+              src="https://docs.google.com/gview?url=https://github.com/Lal1th/Portfolio/raw/main/LALITH_CV.pdf&embedded=true"
               class="resume-preview"
               title="Resume Preview"
+              style="background: white;"
             >
-              <!-- Fallback content for browsers that don't support <object> -->
-              <p>
+              <!-- Fallback content for browsers that don't support iframes -->
+              <p style="color: var(--text); text-align: center; padding: 2rem;">
                 It looks like your browser doesn't support PDF previews.
-                <a href="https://github.com/Lal1th/Portfolio/raw/main/LALITH_CV.pdf" download="Lalith_Nandakumar_Resume.pdf" class="btn primary">
+                <br>
+                <a href="https://github.com/Lal1th/Portfolio/raw/main/LALITH_CV.pdf" download="Lalith_Nandakumar_Resume.pdf" class="btn primary" style="margin-top: 1rem;">
                   <i class="ri-download-2-line"></i> Download Resume Instead
                 </a>
               </p>
-            </object>
+            </iframe>
             <!-- --- End Fix --- -->
           </div>
           <div class="btns" style="justify-content: center;">
@@ -2530,3 +2522,4 @@
     </script>
   </body>
 </html>
+
