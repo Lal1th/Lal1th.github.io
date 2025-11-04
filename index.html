@@ -806,6 +806,20 @@
         background: white;
       }
 
+      /* --- Resume Fallback Styling --- */
+      .resume-preview p {
+        color: var(--text);
+        text-align: center;
+        padding: 2rem;
+      }
+      .resume-preview p a {
+        margin-top: 1rem;
+        display: inline-flex; /* Use inline-flex to match btn class */
+        text-decoration: none; /* Links inside p might get underlined */
+      }
+      /* --- End Fallback Styling --- */
+
+
       /* --- Resume Modal Layout Fix --- */
       .modal#modal-resume .sheet {
         max-height: 95vh;
@@ -822,6 +836,8 @@
         flex: 1; /* Make this div grow to fill space */
         min-height: 0; /* Necessary for flex-grow in a column */
         margin-top: 1rem;
+        background: var(--bg); /* Show bg color for loading */
+        border-radius: 8px;
       }
       .modal#modal-resume .btns {
         flex-shrink: 0; /* Prevent buttons from shrinking */
@@ -1033,13 +1049,25 @@
         scroll-snap-type: x mandatory;
         padding-bottom: 8px;
       }
+      
+      /* --- FIX: Horizontal scrollbar styling --- */
       .carousel::-webkit-scrollbar {
         height: 10px;
       }
-      .carousel::-webkit-scrollbar-thumb {
-        background: #232630;
+      .carousel::-webkit-scrollbar-track {
+        background: var(--chip);
         border-radius: 10px;
       }
+      .carousel::-webkit-scrollbar-thumb {
+        background: var(--accent);
+        border-radius: 10px;
+        border: 2px solid var(--chip);
+      }
+      .carousel::-webkit-scrollbar-thumb:hover {
+        background: #79c0ff; /* A lighter blue on hover */
+      }
+      /* --- End Fix --- */
+
 
       /* --- Cards --- */
       .card {
@@ -1074,7 +1102,8 @@
 
       .poster {
         aspect-ratio: 16/9;
-        background: #0f1117;
+        /* --- FIX: Use card background for poster bg --- */
+        background: var(--card);
         position: relative;
         overflow: hidden;
       }
@@ -1086,7 +1115,8 @@
         filter: saturate(1.05);
         transition: transform 0.6s ease;
         padding: 10px;
-        background: #0f1117;
+        /* --- FIX: Use card background for image bg --- */
+        background: var(--card);
       }
 
       /* Special styling for Keyera image to allow zoom */
@@ -1299,6 +1329,17 @@
         overflow: hidden;
         box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
         animation: modalSlideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      @keyframes modalSlideUp {
+        from {
+          opacity: 0;
+          transform: translateY(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
       .sheet .cover {
@@ -1941,13 +1982,23 @@
             <h3>Resume Preview</h3>
             <button class="btn" data-close>Close</button>
           </div>
-          <div style="margin-top: 1rem;">
-            <!-- --- FIX: Use Google Docs Viewer for compatibility --- -->
-            <iframe
-              src="httpsGallery://docs.google.com/gview?url=https://github.com/Lal1th/Portfolio/raw/main/LALITH_CV.pdf&embedded=true"
+          <!-- This is the container for the preview -->
+          <div>
+            <!-- --- FIX: Use <object> tag as a simple preview fallback --- -->
+            <object
+              data="https://github.com/Lal1th/Portfolio/raw/main/LALITH_CV.pdf"
+              type="application/pdf"
               class="resume-preview"
               title="Resume Preview"
-            ></iframe>
+            >
+              <!-- Fallback content for browsers that don't support <object> -->
+              <p>
+                It looks like your browser doesn't support PDF previews.
+                <a href="https://github.com/Lal1th/Portfolio/raw/main/LALITH_CV.pdf" download="Lalith_Nandakumar_Resume.pdf" class="btn primary">
+                  <i class="ri-download-2-line"></i> Download Resume Instead
+                </a>
+              </p>
+            </object>
             <!-- --- End Fix --- -->
           </div>
           <div class="btns" style="justify-content: center;">
@@ -2479,6 +2530,3 @@
     </script>
   </body>
 </html>
-
-
-
